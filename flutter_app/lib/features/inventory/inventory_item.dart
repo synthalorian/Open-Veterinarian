@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 
 part 'inventory_item.g.dart';

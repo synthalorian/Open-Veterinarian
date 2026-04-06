@@ -23,11 +23,8 @@ class OpenVeterinarianApp extends StatelessWidget {
       title: 'Open Veterinarian',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.cyan,
-          brightness: Brightness.dark,
-        ),
-        useMaterialDesign3: true,
+        brightness: Brightness.dark,
+        primarySwatch: Colors.cyan,
         scaffoldBackgroundColor: const Color(0xFF020202),
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.transparent,

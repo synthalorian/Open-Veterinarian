@@ -1,6 +1,5 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../features/profile/user_profile.dart';
-import '../features/anesthesia/surgical_checklist.dart';
 import '../features/anesthesia/anesthesia_protocols.dart';
 
 class SyncService {

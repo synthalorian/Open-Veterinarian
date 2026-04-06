@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../services/database_service.dart';
 import '../ui/glow_card.dart';
 
 class NeurologyHudView extends StatelessWidget {

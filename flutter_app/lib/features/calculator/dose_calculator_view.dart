@@ -19,13 +19,15 @@ class DoseCalculatorView extends ConsumerWidget {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
-        children: [
-          _buildPatientInfoCard(context, notifier, state),
-          const SizedBox(height: 16),
-          _buildDrugSelectorCard(context, notifier, state, drugs),
-          const SizedBox(height: 20),
-          if (state.result != null) _buildResultCard(context, state),
-        ],
+        child: Column(
+          children: [
+            _buildPatientInfoCard(context, notifier, state),
+            const SizedBox(height: 16),
+            _buildDrugSelectorCard(context, notifier, state, drugs),
+            const SizedBox(height: 20),
+            if (state.result != null) _buildResultCard(context, state),
+          ],
+        ),
       ),
     );
   }

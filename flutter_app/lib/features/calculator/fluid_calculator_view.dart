@@ -16,11 +16,13 @@ class FluidCalculatorView extends ConsumerWidget {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
-        children: [
-          _buildInputCard(context, notifier, state),
-          const SizedBox(height: 20),
-          if (state.result != null) _buildResultCard(context, state),
-        ],
+        child: Column(
+          children: [
+            _buildInputCard(context, notifier, state),
+            const SizedBox(height: 20),
+            if (state.result != null) _buildResultCard(context, state),
+          ],
+        ),
       ),
     );
   }

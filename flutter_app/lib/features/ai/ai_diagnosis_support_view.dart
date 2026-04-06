@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../providers/search_provider.dart';
 import '../ui/glow_card.dart';
 
 class AiDiagnosisSupportView extends ConsumerStatefulWidget {

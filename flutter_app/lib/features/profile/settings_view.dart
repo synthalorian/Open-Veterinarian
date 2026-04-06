@@ -22,15 +22,17 @@ class SettingsView extends ConsumerWidget {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
-        children: [
-          _buildProfileSection(context, profile, profileNotifier),
-          const SizedBox(height: 24),
-          _buildSyncSection(context, user, authNotifier, profile),
-          const SizedBox(height: 24),
-          _buildBackupSection(context),
-          const SizedBox(height: 24),
-          _buildAppInfoSection(context),
-        ],
+        child: Column(
+          children: [
+            _buildProfileSection(context, profile, profileNotifier),
+            const SizedBox(height: 24),
+            _buildSyncSection(context, user, authNotifier, profile),
+            const SizedBox(height: 24),
+            _buildBackupSection(context),
+            const SizedBox(height: 24),
+            _buildAppInfoSection(context),
+          ],
+        ),
       ),
     );
   }
@@ -301,7 +303,7 @@ class SettingsView extends ConsumerWidget {
     return GlowCard(
       glowColor: Colors.purpleAccent,
       child: const Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

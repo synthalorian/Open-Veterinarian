@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/search_provider.dart';
+import '../../providers/search_provider.dart';
 
 class GlobalSearchDelegate extends SearchDelegate<SearchResult?> {
   final WidgetRef ref;
@@ -55,13 +55,14 @@ class GlobalSearchDelegate extends SearchDelegate<SearchResult?> {
         switch (result.type) {
           case SearchResultType.species:
             icon = Icons.pets;
-            break;
           case SearchResultType.drug:
             icon = Icons.medication;
-            break;
           case SearchResultType.lab:
             icon = Icons.science;
-            break;
+          case SearchResultType.pathology:
+            icon = Icons.biotech;
+          case SearchResultType.imaging:
+            icon = Icons.image_search;
         }
 
         return ListTile(

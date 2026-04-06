@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import '../../services/database_service.dart';
 import '../ui/glow_card.dart';
 import 'data/client_education.dart';
 

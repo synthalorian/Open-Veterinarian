@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../services/database_service.dart';
 import '../ui/glow_card.dart';
-import 'data/pathology.dart';
 import 'pathology_detail_view.dart';
 
 class PathologyListView extends StatelessWidget {

@@ -8,9 +8,6 @@ import '../../services/database_service.dart';
 class BackupService {
   static Future<void> exportBackup() async {
     final dir = await getApplicationDocumentsDirectory();
-    final backupDir = await getTemporaryDirectory();
-    final timestamp = DateTime.now().millisecondsSinceEpoch;
-    final backupPath = '${backupDir.path}/open_vet_backup_$timestamp.zip';
 
     // In a real app, you would use 'archive' package to zip.
     // For now, we will just share the main Hive files.

@@ -26,11 +26,13 @@ class _CriCalculatorViewState extends State<CriCalculatorView> {
       appBar: AppBar(title: const Text('CRI CALCULATOR')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
-        children: [
-          _buildInputSection(),
-          const SizedBox(height: 24),
-          if (criResult > 0) _buildResultSection(criResult),
-        ],
+        child: Column(
+          children: [
+            _buildInputSection(),
+            const SizedBox(height: 24),
+            if (criResult > 0) _buildResultSection(criResult),
+          ],
+        ),
       ),
     );
   }

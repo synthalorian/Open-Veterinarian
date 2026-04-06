@@ -67,11 +67,11 @@ class DatabaseService {
     final ophthalmicBox = await Hive.openBox<OphthalmicReference>(ophthalmicBoxName);
     final triageBox = await Hive.openBox<TriageCriteria>(triageBoxName);
     final videoBox = await Hive.openBox<VideoReference>(videoBoxName);
-    final inventoryBox = await Hive.openBox<InventoryItem>(inventoryBoxName);
+    await Hive.openBox<InventoryItem>(inventoryBoxName);
     final checklistBox = await Hive.openBox<SurgicalChecklist>(checklistBoxName);
     final profileBox = await Hive.openBox<UserProfile>(profileBoxName);
     final protocolsBox = await Hive.openBox<AnesthesiaProtocol>(protocolsBoxName);
-    final labLogBox = await Hive.openBox<PatientLabLog>(labLogBoxName);
+    await Hive.openBox<PatientLabLog>(labLogBoxName);
 
     // Seed Data
     if (speciesBox.isEmpty) await speciesBox.addAll(initialVitalsData);

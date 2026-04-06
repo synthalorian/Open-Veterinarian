@@ -22,11 +22,13 @@ class _BloodGasInterpreterViewState extends State<BloodGasInterpreterView> {
       appBar: AppBar(title: const Text('BLOOD GAS INTERPRETER')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
-        children: [
-          _buildInputSection(),
-          const SizedBox(height: 24),
-          _buildResultSection(result),
-        ],
+        child: Column(
+          children: [
+            _buildInputSection(),
+            const SizedBox(height: 24),
+            _buildResultSection(result),
+          ],
+        ),
       ),
     );
   }

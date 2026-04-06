@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'anesthesia_timer_model.dart';
+import '../features/anesthesia/anesthesia_timer_model.dart';
 
 part 'anesthesia_timer_provider.g.dart';
 

@@ -58,7 +58,6 @@ class AnesthesiaChecklistView extends StatelessWidget {
           ),
         ),
         ...phase.items.asMap().entries.map((entry) {
-          final itemIndex = entry.key;
           final item = entry.value;
           return Card(
             margin: const EdgeInsets.only(bottom: 8.0),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../services/database_service.dart';
 import '../ui/glow_card.dart';
-import 'data/triage.dart';
 
 class TriageHudView extends StatelessWidget {
   const TriageHudView({super.key});

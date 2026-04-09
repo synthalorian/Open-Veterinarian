@@ -37,7 +37,7 @@ android {
 
     defaultConfig {
         applicationId = "ai.openclaw.open_veterinarian"
-        minSdk = 21
+        minSdk = 24
         targetSdk = 34
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName

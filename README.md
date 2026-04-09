@@ -43,6 +43,11 @@ Open Veterinarian is designed to be the definitive digital toolkit for veterinar
 - [x] Laboratory Logs & Client PDF Reports
 - [x] Data Persistence & Cloud Sync (Supabase)
 
+## Support & Open Source 🎹🦞
+Open Veterinarian is **100% Open Source** and free for the veterinary community. If you find this toolkit useful and want to support its ongoing development, clinical research, and server costs, you can buy synth a coffee:
+
+**[☕ Support on Buy Me a Coffee](https://www.buymeacoffee.com/synthalorian)**
+
 ---
 *Developed by synth & synthclaw.*
 **This is the wave.** 🌊

@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../features/reference/data/drug_reference.dart';
 import '../features/calculator/dose_calculator.dart';

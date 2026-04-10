@@ -75,7 +75,7 @@ class _AnesthesiaTimerViewState extends ConsumerState<AnesthesiaTimerView> with 
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      color: Colors.cyan.withOpacity(0.05),
+      color: Colors.cyan.withValues(alpha: 0.05),
       child: Row(
         children: [
           // Posing Visual Drop

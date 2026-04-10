@@ -82,7 +82,7 @@ class _MainDashboardState extends ConsumerState<MainDashboard> {
             children: [
               Container(
                 width: 300,
-                decoration: BoxDecoration(border: Border(right: BorderSide(color: Colors.white.withOpacity(0.1)))),
+                decoration: BoxDecoration(border: Border(right: BorderSide(color: Colors.white.withValues(alpha: 0.1)))),
                 child: ListView(
                   padding: const EdgeInsets.all(16),
                   children: _buildDashboardItems(context, isCompact: true),
@@ -148,7 +148,7 @@ class _MainDashboardState extends ConsumerState<MainDashboard> {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Colors.black.withOpacity(0.8), Colors.transparent, Colors.black.withOpacity(0.8)],
+                colors: [Colors.black.withValues(alpha: 0.8), Colors.transparent, Colors.black.withOpacity(0.8)],
               ),
             ),
           ),
@@ -241,12 +241,12 @@ class _MainDashboardState extends ConsumerState<MainDashboard> {
           contentPadding: EdgeInsets.symmetric(horizontal: isCompact ? 12 : 20, vertical: isCompact ? 0 : 8),
           leading: Container(
             padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(color: glowColor.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
+            decoration: BoxDecoration(color: glowColor.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
             child: Icon(icon, color: glowColor, size: isCompact ? 20 : 28),
           ),
           title: Text(title, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: isCompact ? 13 : 16)),
           subtitle: isCompact ? null : Text(subtitle, style: const TextStyle(fontSize: 12, color: Colors.grey)),
-          trailing: isCompact ? null : Icon(Icons.chevron_right, color: glowColor.withOpacity(0.5)),
+          trailing: isCompact ? null : Icon(Icons.chevron_right, color: glowColor.withValues(alpha: 0.5)),
         ),
       ),
     );

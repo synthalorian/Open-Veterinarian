@@ -108,10 +108,10 @@ class _SurgicalNoteTakerViewState extends State<SurgicalNoteTakerView> {
           icon: Icon(icon),
           onPressed: onTap,
           style: IconButton.styleFrom(
-            backgroundColor: color.withOpacity(0.2),
+            backgroundColor: color.withValues(alpha: 0.2),
             foregroundColor: color,
             minimumSize: const Size(60, 60),
-            side: BorderSide(color: color.withOpacity(0.5)),
+            side: BorderSide(color: color.withValues(alpha: 0.5)),
           ),
         ),
         const SizedBox(height: 8),

@@ -19,7 +19,7 @@ class GlowCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: glowColor.withOpacity(0.1),
+            color: glowColor.withValues(alpha: 0.1),
             blurRadius: blurRadius,
             spreadRadius: 2,
           ),
@@ -27,10 +27,10 @@ class GlowCard extends StatelessWidget {
       ),
       child: Card(
         elevation: 0,
-        color: Colors.white.withOpacity(0.05),
+        color: Colors.white.withValues(alpha: 0.05),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          side: BorderSide(color: glowColor.withOpacity(0.2), width: 1),
+          side: BorderSide(color: glowColor.withValues(alpha: 0.2), width: 1),
         ),
         child: child,
       ),

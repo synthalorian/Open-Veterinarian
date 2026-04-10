@@ -70,7 +70,7 @@ class _EmergencyCalculatorViewState extends State<EmergencyCalculatorView> {
   Widget _buildMetronomeHud() {
     return Container(
       width: double.infinity,
-      color: Colors.redAccent.withOpacity(0.2),
+      color: Colors.redAccent.withValues(alpha: 0.2),
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Center(
         child: Row(
@@ -92,7 +92,7 @@ class _EmergencyCalculatorViewState extends State<EmergencyCalculatorView> {
   Widget _buildWeightInput() {
     return Container(
       padding: const EdgeInsets.all(20),
-      color: Colors.red.withOpacity(0.05),
+      color: Colors.red.withValues(alpha: 0.05),
       child: TextField(
         keyboardType: const TextInputType.numberWithOptions(decimal: true),
         style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white),
@@ -133,7 +133,7 @@ class _EmergencyCalculatorViewState extends State<EmergencyCalculatorView> {
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                decoration: BoxDecoration(color: Colors.red.withOpacity(0.2), borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.redAccent)),
+                decoration: BoxDecoration(color: Colors.red.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.redAccent)),
                 child: Column(
                   children: [
                     Text(volume.toStringAsFixed(2), style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white, fontFamily: 'monospace')),

@@ -116,7 +116,7 @@ class SettingsView extends ConsumerWidget {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.05),
+                  color: Colors.white.withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Row(
@@ -154,7 +154,7 @@ class SettingsView extends ConsumerWidget {
                       icon: const Icon(Icons.logout),
                       label: const Text('LOGOUT'),
                       onPressed: () => authNotifier.signOut(),
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent.withOpacity(0.2), foregroundColor: Colors.white),
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent.withValues(alpha: 0.2), foregroundColor: Colors.white),
                     ),
                   ),
                 ],
@@ -267,7 +267,7 @@ class SettingsView extends ConsumerWidget {
                     label: const Text('EXPORT'),
                     onPressed: () => BackupService.exportBackup(),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueAccent.withOpacity(0.2),
+                      backgroundColor: Colors.blueAccent.withValues(alpha: 0.2),
                       foregroundColor: Colors.white,
                     ),
                   ),
@@ -286,7 +286,7 @@ class SettingsView extends ConsumerWidget {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.redAccent.withOpacity(0.2),
+                      backgroundColor: Colors.redAccent.withValues(alpha: 0.2),
                       foregroundColor: Colors.white,
                     ),
                   ),

@@ -35,7 +35,7 @@ class ClientEducationHubView extends StatelessWidget {
                           height: 200,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.05),
+                            color: Colors.white.withValues(alpha: 0.05),
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: Colors.white10),
                           ),

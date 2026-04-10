@@ -12,7 +12,7 @@ class NeonGridBackground extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = gridColor.withOpacity(0.1)
+      ..color = gridColor.withValues(alpha: 0.1)
       ..strokeWidth = 1.0;
 
     // Draw Vertical Lines
@@ -27,7 +27,7 @@ class NeonGridBackground extends CustomPainter {
 
     // Draw Glow on top
     final glowPaint = Paint()
-      ..color = gridColor.withOpacity(0.05)
+      ..color = gridColor.withValues(alpha: 0.05)
       ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 10);
     
     // Horizontal glow lines

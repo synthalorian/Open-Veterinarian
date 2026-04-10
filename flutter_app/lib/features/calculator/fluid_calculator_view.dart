@@ -29,10 +29,10 @@ class FluidCalculatorView extends ConsumerWidget {
 
   Widget _buildInputCard(BuildContext context, FluidCalculatorNotifier notifier, FluidState state) {
     return Card(
-      color: Colors.white.withOpacity(0.05),
+      color: Colors.white.withValues(alpha: 0.05),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: Colors.cyan.withOpacity(0.2)),
+        side: BorderSide(color: Colors.cyan.withValues(alpha: 0.2)),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -120,7 +120,7 @@ class FluidCalculatorView extends ConsumerWidget {
   Widget _buildResultCard(BuildContext context, FluidState state) {
     final res = state.result!;
     return Card(
-      color: Colors.cyan.withOpacity(0.1),
+      color: Colors.cyan.withValues(alpha: 0.1),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: const BorderSide(color: Colors.cyan),

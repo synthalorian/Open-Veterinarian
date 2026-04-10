@@ -124,7 +124,7 @@ class DoseCalculatorView extends ConsumerWidget {
     final dosage = drug.speciesDosages[speciesKey]!;
 
     return Card(
-      color: Colors.cyan.withOpacity(0.1),
+      color: Colors.cyan.withValues(alpha: 0.1),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

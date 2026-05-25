@@ -27,7 +27,7 @@ class GlowCard extends StatelessWidget {
       ),
       child: Card(
         elevation: 0,
-        color: Colors.white.withValues(alpha: 0.05),
+        color: Theme.of(context).cardColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
           side: BorderSide(color: glowColor.withValues(alpha: 0.2), width: 1),

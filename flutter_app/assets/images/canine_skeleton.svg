@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <style>
+    .bone { fill: #e8dcc8; stroke: #8b7355; stroke-width: 2; }
+    .joint { fill: #4a90d9; opacity: 0.6; }
+    .label { font-family: monospace; font-size: 11px; fill: #666; }
+    .title { font-family: monospace; font-size: 16px; fill: #444; font-weight: bold; }
+  </style>
+  <text x="400" y="30" text-anchor="middle" class="title">Canine Skeleton (Lateral View)</text>
+  <!-- Skull -->
+  <ellipse cx="160" cy="120" rx="65" ry="50" class="bone"/>
+  <ellipse cx="130" cy="110" rx="40" ry="30" class="bone"/>
+  <!-- Eye socket -->
+  <circle cx="150" cy="105" r="12" fill="#333" opacity="0.3"/>
+  <!-- Nasal bone -->
+  <ellipse cx="95" cy="118" rx="25" ry="12" class="bone"/>
+  <!-- Mandible -->
+  <path d="M130 155 Q160 175 195 160 L200 140" fill="none" class="bone" stroke-width="3"/>
+  <!-- Cervical vertebrae -->
+  <ellipse cx="240" cy="120" rx="12" ry="8" class="bone"/>
+  <ellipse cx="262" cy="118" rx="12" ry="8" class="bone"/>
+  <ellipse cx="284" cy="116" rx="12" ry="8" class="bone"/>
+  <ellipse cx="306" cy="114" rx="12" ry="8" class="bone"/>
+  <ellipse cx="328" cy="112" rx="12" ry="8" class="bone"/>
+  <ellipse cx="350" cy="110" rx="12" ry="8" class="bone"/>
+  <!-- Thoracic vertebrae -->
+  <ellipse cx="372" cy="108" rx="12" ry="8" class="bone"/>
+  <ellipse cx="394" cy="106" rx="12" ry="8" class="bone"/>
+  <ellipse cx="416" cy="105" rx="12" ry="8" class="bone"/>
+  <ellipse cx="438" cy="105" rx="12" ry="8" class="bone"/>
+  <ellipse cx="460" cy="106" rx="12" ry="8" class="bone"/>
+  <ellipse cx="482" cy="108" rx="12" ry="8" class="bone"/>
+  <ellipse cx="504" cy="110" rx="12" ry="8" class="bone"/>
+  <!-- Lumbar vertebrae -->
+  <ellipse cx="526" cy="112" rx="12" ry="8" class="bone"/>
+  <ellipse cx="548" cy="115" rx="12" ry="8" class="bone"/>
+  <ellipse cx="570" cy="118" rx="12" ry="8" class="bone"/>
+  <ellipse cx="592" cy="122" rx="12" ry="8" class="bone"/>
+  <ellipse cx="614" cy="126" rx="12" ry="8" class="bone"/>
+  <!-- Sacrum -->
+  <ellipse cx="636" cy="130" rx="14" ry="12" class="bone"/>
+  <!-- Caudal vertebrae (tail) -->
+  <ellipse cx="658" cy="135" rx="8" ry="6" class="bone"/>
+  <ellipse cx="676" cy="138" rx="7" ry="5" class="bone"/>
+  <ellipse cx="692" cy="140" rx="6" ry="4" class="bone"/>
+  <ellipse cx="706" cy="141" rx="5" ry="3" class="bone"/>
+  <!-- Ribs -->
+  <path d="M380 108 Q380 180 370 210" fill="none" class="bone" stroke-width="2.5"/>
+  <path d="M410 105 Q410 185 400 220" fill="none" class="bone" stroke-width="2.5"/>
+  <path d="M440 105 Q440 190 430 228" fill="none" class="bone" stroke-width="2.5"/>
+  <path d="M470 106 Q470 190 460 230" fill="none" class="bone" stroke-width="2.5"/>
+  <path d="M500 108 Q500 188 490 228" fill="none" class="bone" stroke-width="2.5"/>
+  <!-- Sternum -->
+  <path d="M365 215 Q420 235 490 230" fill="none" class="bone" stroke-width="3"/>
+  <!-- Scapula -->
+  <path d="M375 105 L355 68 L390 62 Z" class="bone"/>
+  <!-- Humerus -->
+  <line x1="380" y1="100" x2="365" y2="180" class="bone" stroke-width="6"/>
+  <circle cx="375" cy="78" r="8" class="joint"/>
+  <!-- Shoulder joint marker -->
+  <circle cx="370" cy="180" r="7" class="joint"/>
+  <!-- Radius/Ulna -->
+  <line x1="365" y1="180" x2="350" y2="270" class="bone" stroke-width="5"/>
+  <circle cx="358" cy="270" r="6" class="joint"/>
+  <!-- Carpus -->
+  <circle cx="350" cy="282" r="5" class="bone"/>
+  <circle cx="345" cy="292" r="4" class="bone"/>
+  <!-- Metacarpals -->
+  <line x1="350" y1="282" x2="345" y2="340" class="bone" stroke-width="3"/>
+  <line x1="348" y1="282" x2="340" y2="338" class="bone" stroke-width="3"/>
+  <!-- Phalanges -->
+  <line x1="345" y1="340" x2="342" y2="365" class="bone" stroke-width="2"/>
+  <line x1="340" y1="338" x2="335" y2="363" class="bone" stroke-width="2"/>
+  <!-- Pelvis -->
+  <path d="M570 118 L630 130 L660 170 L620 195 L590 140 Z" class="bone"/>
+  <circle cx="640" cy="135" r="8" class="joint"/>
+  <!-- Femur -->
+  <line x1="620" y1="170" x2="640" y2="290" class="bone" stroke-width="7"/>
+  <circle cx="630" cy="290" r="7" class="joint"/>
+  <!-- Stifle joint marker -->
+  <text x="648" y="295" class="label">Stifle</text>
+  <!-- Tibia/Fibula -->
+  <line x1="640" y1="290" x2="635" y2="380" class="bone" stroke-width="5"/>
+  <circle cx="635" cy="380" r="6" class="joint"/>
+  <!-- Tarsus -->
+  <circle cx="633" cy="392" r="5" class="bone"/>
+  <!-- Metatarsals -->
+  <line x1="633" y1="392" x2="630" y2="440" class="bone" stroke-width="3"/>
+  <line x1="630" y1="392" x2="625" y2="438" class="bone" stroke-width="3"/>
+  <!-- Phalanges (hind) -->
+  <line x1="630" y1="440" x2="628" y2="460" class="bone" stroke-width="2"/>
+  <line x1="625" y1="438" x2="621" y2="458" class="bone" stroke-width="2"/>
+  <!-- Anatomy labels -->
+  <text x="160" y="80" text-anchor="middle" class="label">Skull</text>
+  <text x="300" y="100" text-anchor="middle" class="label">Cervical</text>
+  <text x="440" y="92" text-anchor="middle" class="label">Thoracic</text>
+  <text x="560" y="102" text-anchor="middle" class="label">Lumbar</text>
+  <text x="660" y="118" text-anchor="middle" class="label">Sacrum</text>
+  <text x="385" y="55" text-anchor="middle" class="label">Scapula</text>
+  <text x="355" y="155" text-anchor="middle" class="label">Humerus</text>
+  <text x="335" y="230" text-anchor="middle" class="label">Radius/Ulna</text>
+  <text x="660" y="240" text-anchor="middle" class="label">Femur</text>
+  <text x="655" y="340" text-anchor="middle" class="label">Tibia/Fibula</text>
+  <!-- Hip and shoulder indicators -->
+  <text x="350" y="185" class="label">● Shoulder</text>
+  <text x="648" y="265" class="label">● Hip</text>
+</svg>

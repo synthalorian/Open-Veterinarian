@@ -160,9 +160,9 @@ class _MainDashboardState extends ConsumerState<MainDashboard> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Theme.of(context).scaffoldBackgroundColor.withValues(alpha: 0.8),
+                  appColors.surface.withValues(alpha: 0.8),
                   Colors.transparent,
-                  Theme.of(context).scaffoldBackgroundColor.withValues(alpha: 0.8),
+                  appColors.surface.withValues(alpha: 0.8),
                 ],
               ),
             ),
@@ -339,7 +339,7 @@ class _MainDashboardState extends ConsumerState<MainDashboard> {
             child: Text('CANCEL', style: TextStyle(color: appColors.textDim)),
           ),
           ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: appColors.accent, foregroundColor: Colors.black),
+            style: ElevatedButton.styleFrom(backgroundColor: appColors.accent, foregroundColor: Colors.white),
             onPressed: () {
               final profile = ref.read(profileNotifierProvider);
               ReportService.generateClientSummary(
@@ -375,8 +375,8 @@ class GlobalSearchDelegate extends SearchDelegate {
   @override
   ThemeData appBarTheme(BuildContext context) {
     return Theme.of(context).copyWith(
-      inputDecorationTheme: const InputDecorationTheme(
-        hintStyle: TextStyle(color: Colors.grey),
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle: TextStyle(color: appColors.textDim),
         border: InputBorder.none,
       ),
     );

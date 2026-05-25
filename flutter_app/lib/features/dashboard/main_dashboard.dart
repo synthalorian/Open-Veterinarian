@@ -62,13 +62,12 @@ class _MainDashboardState extends ConsumerState<MainDashboard> {
 
   Widget _buildMobileDashboard(BuildContext context, AppColors appColors) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
       appBar: _buildAppBar(context, appColors),
       body: Stack(
         children: [
           _buildBackground(appColors),
           ListView(
-            padding: EdgeInsets.fromLTRB(16, MediaQuery.of(context).padding.top + kToolbarHeight + 16, 16, 40),
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 40),
             children: _buildDashboardItems(context, appColors),
           ),
         ],
@@ -120,30 +119,11 @@ class _MainDashboardState extends ConsumerState<MainDashboard> {
 
   PreferredSizeWidget _buildAppBar(BuildContext context, AppColors appColors) {
     return AppBar(
-      title: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (!ResponsiveLayout.isTablet(context))
-            Padding(
-              padding: const EdgeInsets.only(right: 12),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(4),
-                child: Image.asset('assets/images/app_logo.jpg', width: 24, height: 24),
-              ),
-            ),
-          Text('🎹🦞 OPEN VETERINARIAN', style: TextStyle(color: appColors.accent)),
-        ],
-      ),
+      title: Text('Open Veterinarian', style: TextStyle(color: appColors.accent)),
       actions: [
         IconButton(
           icon: Icon(Icons.settings, color: appColors.accent),
           onPressed: () => _navigateTo(context, const SettingsView()),
-        ),
-        IconButton(
-          icon: Icon(Icons.search, color: appColors.accent),
-          onPressed: () {
-            showSearch(context: context, delegate: GlobalSearchDelegate(ref, appColors, onNavigate: (view) => _navigateTo(context, view)));
-          },
         ),
       ],
     );

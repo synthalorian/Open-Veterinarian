@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'blood_gas_interpreter.dart';
 import '../ui/glow_card.dart';
+import 'package:open_veterinarian/features/theme/app_theme.dart';
 
 class BloodGasInterpreterView extends StatefulWidget {
   const BloodGasInterpreterView({super.key});
@@ -16,6 +17,7 @@ class _BloodGasInterpreterViewState extends State<BloodGasInterpreterView> {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     final result = BloodGasInterpreter.interpret(ph: ph, pco2: pco2, hco3: hco3);
 
     return Scaffold(
@@ -24,32 +26,32 @@ class _BloodGasInterpreterViewState extends State<BloodGasInterpreterView> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            _buildInputSection(),
+            _buildInputSection(appColors),
             const SizedBox(height: 24),
-            _buildResultSection(result),
+            _buildResultSection(result, appColors),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildInputSection() {
+  Widget _buildInputSection(AppColors appColors) {
     return GlowCard(
-      glowColor: Colors.cyanAccent,
+      glowColor: appColors.accent,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            _buildSlider('pH', ph, 6.8, 7.8, (v) => setState(() => ph = v)),
-            _buildSlider('pCO2 (mmHg)', pco2, 10, 80, (v) => setState(() => pco2 = v)),
-            _buildSlider('HCO3 (mEq/L)', hco3, 5, 45, (v) => setState(() => hco3 = v)),
+            _buildSlider('pH', ph, 6.8, 7.8, (v) => setState(() => ph = v), appColors),
+            _buildSlider('pCO2 (mmHg)', pco2, 10, 80, (v) => setState(() => pco2 = v), appColors),
+            _buildSlider('HCO3 (mEq/L)', hco3, 5, 45, (v) => setState(() => hco3 = v), appColors),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildSlider(String label, double value, double min, double max, ValueChanged<double> onChanged) {
+  Widget _buildSlider(String label, double value, double min, double max, ValueChanged<double> onChanged, AppColors appColors) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -57,23 +59,23 @@ class _BloodGasInterpreterViewState extends State<BloodGasInterpreterView> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
-            Text(value.toStringAsFixed(2), style: const TextStyle(fontFamily: 'monospace', color: Colors.cyanAccent)),
+            Text(value.toStringAsFixed(2), style: TextStyle(fontFamily: 'monospace', color: appColors.accent)),
           ],
         ),
         Slider(
           value: value,
           min: min,
           max: max,
-          activeColor: Colors.cyanAccent,
+          activeColor: appColors.accent,
           onChanged: onChanged,
         ),
       ],
     );
   }
 
-  Widget _buildResultSection(BloodGasResult res) {
+  Widget _buildResultSection(BloodGasResult res, AppColors appColors) {
     return GlowCard(
-      glowColor: res.primaryDisturbance == 'Normal' ? Colors.greenAccent : Colors.redAccent,
+      glowColor: res.primaryDisturbance == 'Normal' ? appColors.success : appColors.danger,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -83,16 +85,16 @@ class _BloodGasInterpreterViewState extends State<BloodGasInterpreterView> {
             const SizedBox(height: 8),
             Text(
               res.primaryDisturbance.toUpperCase(),
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: appColors.accent),
             ),
             Text(
               res.compensation,
-              style: TextStyle(fontSize: 14, color: Colors.grey[400], fontStyle: FontStyle.italic),
+              style: TextStyle(fontSize: 14, color: appColors.textDim, fontStyle: FontStyle.italic),
             ),
-            const Divider(height: 24, color: Colors.white10),
+            Divider(height: 24, color: appColors.accent.withAlpha(26)),
             Text(
               res.interpretation,
-              style: const TextStyle(fontSize: 14, color: Colors.white70, height: 1.4),
+              style: TextStyle(fontSize: 14, color: appColors.sectionHeader, height: 1.4),
             ),
           ],
         ),

@@ -3,6 +3,7 @@ import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 import 'video_reference.dart';
 import '../ui/glow_card.dart';
+import 'package:open_veterinarian/features/theme/app_theme.dart';
 
 class VideoReferenceView extends StatefulWidget {
   final VideoReference video;
@@ -24,6 +25,7 @@ class _VideoReferenceViewState extends State<VideoReferenceView> {
   }
 
   Future<void> _initializePlayer() async {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(widget.video.videoUrl));
     await _videoPlayerController.initialize();
     
@@ -33,14 +35,14 @@ class _VideoReferenceViewState extends State<VideoReferenceView> {
       looping: false,
       aspectRatio: _videoPlayerController.value.aspectRatio,
       materialProgressColors: ChewieProgressColors(
-        playedColor: Colors.cyanAccent,
-        handleColor: Colors.cyanAccent,
-        backgroundColor: Colors.white10,
-        bufferedColor: Colors.white24,
+        playedColor: appColors.accent,
+        handleColor: appColors.accent,
+        backgroundColor: appColors.accent.withAlpha(26),
+        bufferedColor: appColors.accent.withAlpha(61),
       ),
       placeholder: Container(
-        color: Colors.black,
-        child: const Center(child: CircularProgressIndicator(color: Colors.cyanAccent)),
+        color: appColors.surface,
+        child: Center(child: CircularProgressIndicator(color: appColors.accent)),
       ),
     );
     setState(() {});
@@ -55,6 +57,8 @@ class _VideoReferenceViewState extends State<VideoReferenceView> {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.video.title.toUpperCase()),
@@ -67,7 +71,7 @@ class _VideoReferenceViewState extends State<VideoReferenceView> {
               aspectRatio: 16 / 9,
               child: _chewieController != null && _chewieController!.videoPlayerController.value.isInitialized
                   ? Chewie(controller: _chewieController!)
-                  : const Center(child: CircularProgressIndicator(color: Colors.cyanAccent)),
+                  : Center(child: CircularProgressIndicator(color: appColors.accent)),
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -76,19 +80,19 @@ class _VideoReferenceViewState extends State<VideoReferenceView> {
                 children: [
                   Text(
                     widget.video.title,
-                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: appColors.accent),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     widget.video.category.toUpperCase(),
-                    style: const TextStyle(fontSize: 14, color: Colors.cyanAccent, letterSpacing: 1.2),
+                    style: TextStyle(fontSize: 14, color: appColors.accent, letterSpacing: 1.2),
                   ),
                   const SizedBox(height: 16),
-                  const Text('DESCRIPTION', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white70, letterSpacing: 1.5)),
+                  Text('DESCRIPTION', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: appColors.sectionHeader, letterSpacing: 1.5)),
                   const SizedBox(height: 8),
                   Text(
                     widget.video.description,
-                    style: const TextStyle(fontSize: 16, color: Colors.grey, height: 1.5),
+                    style: TextStyle(fontSize: 16, color: appColors.textDim, height: 1.5),
                   ),
                 ],
               ),
@@ -105,6 +109,7 @@ class VideoLibraryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     final videos = initialVideoData; // Mock data for now
 
     return Scaffold(
@@ -117,16 +122,16 @@ class VideoLibraryView extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.only(bottom: 12),
             child: GlowCard(
-              glowColor: Colors.pinkAccent,
+              glowColor: appColors.accentTertiary,
               child: ListTile(
                 onTap: () => Navigator.push(
                   context, 
                   MaterialPageRoute(builder: (_) => VideoReferenceView(video: video))
                 ),
-                leading: const Icon(Icons.play_circle_fill, color: Colors.pinkAccent, size: 32),
-                title: Text(video.title.toUpperCase(), style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-                subtitle: Text(video.category, style: const TextStyle(fontSize: 12, color: Colors.grey)),
-                trailing: const Icon(Icons.chevron_right, color: Colors.pinkAccent),
+                leading: Icon(Icons.play_circle_fill, color: appColors.accentTertiary, size: 32),
+                title: Text(video.title.toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold, color: appColors.accent)),
+                subtitle: Text(video.category, style: TextStyle(fontSize: 12, color: appColors.textDim)),
+                trailing: Icon(Icons.chevron_right, color: appColors.accentTertiary),
               ),
             ),
           );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../ui/glow_card.dart';
+import 'package:open_veterinarian/features/theme/app_theme.dart';
 
 class CriCalculatorView extends StatefulWidget {
   const CriCalculatorView({super.key});
@@ -16,6 +17,7 @@ class _CriCalculatorViewState extends State<CriCalculatorView> {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     // Math: [Dose (mcg/kg/min) * Weight (kg) * 60] / [Concentration (mg/ml) * 1000] = CRI Rate (ml/hr)
     double criResult = 0;
     if (weight > 0 && doseRate > 0 && concentration > 0) {
@@ -28,18 +30,18 @@ class _CriCalculatorViewState extends State<CriCalculatorView> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            _buildInputSection(),
+            _buildInputSection(appColors),
             const SizedBox(height: 24),
-            if (criResult > 0) _buildResultSection(criResult),
+            if (criResult > 0) _buildResultSection(criResult, appColors),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildInputSection() {
+  Widget _buildInputSection(AppColors appColors) {
     return GlowCard(
-      glowColor: Colors.purpleAccent,
+      glowColor: appColors.accent,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -64,14 +66,14 @@ class _CriCalculatorViewState extends State<CriCalculatorView> {
     );
   }
 
-  Widget _buildResultSection(double result) {
+  Widget _buildResultSection(double result, AppColors appColors) {
     return GlowCard(
-      glowColor: Colors.greenAccent,
+      glowColor: appColors.success,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            const Text('CALCULATED INFUSION RATE', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.greenAccent)),
+            Text('CALCULATED INFUSION RATE', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: appColors.success)),
             const SizedBox(height: 12),
             Text(
               '${result.toStringAsFixed(2)} ml/hr',

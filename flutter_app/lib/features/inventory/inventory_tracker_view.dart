@@ -3,18 +3,21 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../../services/database_service.dart';
 import '../ui/glow_card.dart';
 import 'inventory_item.dart';
+import 'package:open_veterinarian/features/theme/app_theme.dart';
 
 class InventoryTrackerView extends StatelessWidget {
   const InventoryTrackerView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('INVENTORY TRACKER'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.add, color: Colors.cyanAccent),
+            icon: Icon(Icons.add, color: appColors.accent),
             onPressed: () => _showAddItemDialog(context),
           ),
         ],
@@ -25,8 +28,8 @@ class InventoryTrackerView extends StatelessWidget {
           final items = box.values.toList();
           
           if (items.isEmpty) {
-            return const Center(
-              child: Text('Inventory empty. Add items to track.', style: TextStyle(color: Colors.grey)),
+            return Center(
+              child: Text('Inventory empty. Add items to track.', style: TextStyle(color: appColors.textDim)),
             );
           }
 
@@ -39,15 +42,15 @@ class InventoryTrackerView extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 12),
                 child: GlowCard(
-                  glowColor: isLow ? Colors.redAccent : Colors.cyanAccent,
+                  glowColor: isLow ? appColors.danger : appColors.accent,
                   child: ListTile(
-                    title: Text(item.name.toUpperCase(), style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-                    subtitle: Text(item.category, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                    title: Text(item.name.toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold, color: appColors.accent)),
+                    subtitle: Text(item.category, style: TextStyle(fontSize: 12, color: appColors.textDim)),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         IconButton(
-                          icon: const Icon(Icons.remove_circle_outline, color: Colors.grey),
+                          icon: Icon(Icons.remove_circle_outline, color: appColors.textDim),
                           onPressed: () {
                             if (item.quantity > 0) {
                               item.quantity--;
@@ -60,12 +63,12 @@ class InventoryTrackerView extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 18, 
                             fontWeight: FontWeight.bold, 
-                            color: isLow ? Colors.redAccent : Colors.white,
+                            color: isLow ? appColors.danger : appColors.accent,
                             fontFamily: 'monospace',
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.add_circle_outline, color: Colors.cyanAccent),
+                          icon: Icon(Icons.add_circle_outline, color: appColors.accent),
                           onPressed: () {
                             item.quantity++;
                             item.save();
@@ -84,6 +87,7 @@ class InventoryTrackerView extends StatelessWidget {
   }
 
   void _showAddItemDialog(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     final nameController = TextEditingController();
     final categoryController = TextEditingController();
     final quantityController = TextEditingController();
@@ -92,8 +96,8 @@ class InventoryTrackerView extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: Colors.black,
-        title: const Text('ADD INVENTORY ITEM', style: TextStyle(color: Colors.cyanAccent, fontSize: 16)),
+        backgroundColor: appColors.surface,
+        title: Text('ADD INVENTORY ITEM', style: TextStyle(color: appColors.accent, fontSize: 16)),
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,

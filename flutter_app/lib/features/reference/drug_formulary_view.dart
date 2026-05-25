@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_veterinarian/features/theme/app_theme.dart';
 import '../../services/database_service.dart';
 import 'data/drug_reference.dart';
 import 'drug_detail_view.dart';
@@ -22,6 +23,7 @@ class _DrugFormularyViewState extends State<DrugFormularyView> {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Drug Formulary'),
@@ -31,7 +33,7 @@ class _DrugFormularyViewState extends State<DrugFormularyView> {
             child: DropdownButton<String>(
               value: selectedSpecies,
               underline: const SizedBox(),
-              icon: const Icon(Icons.pets, color: Colors.cyanAccent),
+              icon: Icon(Icons.pets, color: appColors.accent),
               items: const [
                 DropdownMenuItem(value: 'canine', child: Text('Canine')),
                 DropdownMenuItem(value: 'feline', child: Text('Feline')),
@@ -52,10 +54,10 @@ class _DrugFormularyViewState extends State<DrugFormularyView> {
             margin: const EdgeInsets.only(bottom: 12),
             child: ListTile(
               onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => DrugDetailView(drug: drug))),
-              leading: const Icon(Icons.medication, color: Colors.cyanAccent),
+              leading: Icon(Icons.medication, color: appColors.accent),
               title: Text(drug.name, style: const TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: Text(drug.category, style: const TextStyle(fontSize: 12, color: Colors.grey)),
-              trailing: const Icon(Icons.chevron_right, color: Colors.grey),
+              subtitle: Text(drug.category, style: TextStyle(fontSize: 12, color: appColors.textDim)),
+              trailing: Icon(Icons.chevron_right, color: appColors.textDim),
             ),
           );
         },

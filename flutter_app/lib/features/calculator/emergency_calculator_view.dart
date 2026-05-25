@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'emergency_drug_data.dart';
 import '../ui/glow_card.dart';
+import 'package:open_veterinarian/features/theme/app_theme.dart';
 
 class EmergencyCalculatorView extends StatefulWidget {
   const EmergencyCalculatorView({super.key});
@@ -40,12 +41,14 @@ class _EmergencyCalculatorViewState extends State<EmergencyCalculatorView> {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('EMERGENCY / CPR'),
         actions: [
           IconButton(
-            icon: Icon(metronomeActive ? Icons.notifications_active : Icons.notifications_none, color: metronomeActive ? Colors.yellowAccent : Colors.white),
+            icon: Icon(metronomeActive ? Icons.notifications_active : Icons.notifications_none, color: metronomeActive ? appColors.accentSecondary : appColors.accent),
             onPressed: _toggleMetronome,
             tooltip: 'CPR Metronome (110 BPM)',
           )
@@ -53,13 +56,13 @@ class _EmergencyCalculatorViewState extends State<EmergencyCalculatorView> {
       ),
       body: Column(
         children: [
-          if (metronomeActive) _buildMetronomeHud(),
-          _buildWeightInput(),
+          if (metronomeActive) _buildMetronomeHud(appColors),
+          _buildWeightInput(appColors),
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.all(16),
               itemCount: emergencyDrugData.length,
-              itemBuilder: (context, index) => _buildDrugCard(emergencyDrugData[index]),
+              itemBuilder: (context, index) => _buildDrugCard(emergencyDrugData[index], appColors),
             ),
           ),
         ],
@@ -67,10 +70,10 @@ class _EmergencyCalculatorViewState extends State<EmergencyCalculatorView> {
     );
   }
 
-  Widget _buildMetronomeHud() {
+  Widget _buildMetronomeHud(AppColors appColors) {
     return Container(
       width: double.infinity,
-      color: Colors.redAccent.withValues(alpha: 0.2),
+      color: appColors.danger.withAlpha(51),
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Center(
         child: Row(
@@ -79,7 +82,7 @@ class _EmergencyCalculatorViewState extends State<EmergencyCalculatorView> {
             AnimatedScale(
               scale: _beatCount % 2 == 0 ? 1.2 : 1.0,
               duration: const Duration(milliseconds: 100),
-              child: const Icon(Icons.favorite, color: Colors.redAccent),
+              child: Icon(Icons.favorite, color: appColors.danger),
             ),
             const SizedBox(width: 12),
             const Text('CPR METRONOME ACTIVE: 110 BPM', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.2, fontSize: 12)),
@@ -89,32 +92,32 @@ class _EmergencyCalculatorViewState extends State<EmergencyCalculatorView> {
     );
   }
 
-  Widget _buildWeightInput() {
+  Widget _buildWeightInput(AppColors appColors) {
     return Container(
       padding: const EdgeInsets.all(20),
-      color: Colors.red.withValues(alpha: 0.05),
+      color: appColors.danger.withAlpha(13),
       child: TextField(
         keyboardType: const TextInputType.numberWithOptions(decimal: true),
-        style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white),
-        decoration: const InputDecoration(
+        style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: appColors.accent),
+        decoration: InputDecoration(
           labelText: 'PATIENT WEIGHT (KG)',
-          labelStyle: TextStyle(color: Colors.redAccent, letterSpacing: 2),
-          border: OutlineInputBorder(borderSide: BorderSide(color: Colors.redAccent)),
-          prefixIcon: Icon(Icons.monitor_weight, color: Colors.redAccent, size: 32),
+          labelStyle: TextStyle(color: appColors.danger, letterSpacing: 2),
+          border: OutlineInputBorder(borderSide: BorderSide(color: appColors.danger)),
+          prefixIcon: Icon(Icons.monitor_weight, color: appColors.danger, size: 32),
         ),
         onChanged: (val) => setState(() => weight = double.tryParse(val) ?? 0),
       ),
     );
   }
 
-  Widget _buildDrugCard(EmergencyDrug drug) {
+  Widget _buildDrugCard(EmergencyDrug drug, AppColors appColors) {
     double concentrationValue = double.parse(drug.concentration.split(' ').first);
     double volume = (weight > 0) ? (drug.doseMgPerKg * weight) / concentrationValue : 0;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: GlowCard(
-        glowColor: Colors.redAccent,
+        glowColor: appColors.danger,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Row(
@@ -123,21 +126,21 @@ class _EmergencyCalculatorViewState extends State<EmergencyCalculatorView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(drug.name.toUpperCase(), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white)),
+                    Text(drug.name.toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: appColors.accent)),
                     const SizedBox(height: 4),
-                    Text(drug.indication, style: const TextStyle(fontSize: 12, color: Colors.redAccent, fontWeight: FontWeight.bold)),
+                    Text(drug.indication, style: TextStyle(fontSize: 12, color: appColors.danger, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 8),
-                    Text('Conc: ${drug.concentration} | Dose: ${drug.doseMgPerKg} mg/kg', style: const TextStyle(fontSize: 10, color: Colors.grey)),
+                    Text('Conc: ${drug.concentration} | Dose: ${drug.doseMgPerKg} mg/kg', style: TextStyle(fontSize: 10, color: appColors.textDim)),
                   ],
                 ),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                decoration: BoxDecoration(color: Colors.red.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.redAccent)),
+                decoration: BoxDecoration(color: appColors.danger.withAlpha(51), borderRadius: BorderRadius.circular(8), border: Border.all(color: appColors.danger)),
                 child: Column(
                   children: [
-                    Text(volume.toStringAsFixed(2), style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white, fontFamily: 'monospace')),
-                    const Text('ML', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.redAccent)),
+                    Text(volume.toStringAsFixed(2), style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: appColors.accent, fontFamily: 'monospace')),
+                    Text('ML', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: appColors.danger)),
                   ],
                 ),
               ),

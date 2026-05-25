@@ -37,6 +37,8 @@ import '../ui/responsive_layout.dart';
 import '../reports/report_service.dart';
 import '../../providers/search_provider.dart';
 import '../../providers/profile_provider.dart';
+import '../../providers/theme_provider.dart';
+import '../../features/theme/app_theme.dart';
 
 class MainDashboard extends ConsumerStatefulWidget {
   const MainDashboard({super.key});
@@ -50,42 +52,48 @@ class _MainDashboardState extends ConsumerState<MainDashboard> {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = ref.watch(appColorsProvider);
+
     return ResponsiveLayout(
-      mobile: _buildMobileDashboard(context),
-      tablet: _buildTabletDashboard(context),
+      mobile: _buildMobileDashboard(context, appColors),
+      tablet: _buildTabletDashboard(context, appColors),
     );
   }
 
-  Widget _buildMobileDashboard(BuildContext context) {
+  Widget _buildMobileDashboard(BuildContext context, AppColors appColors) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: _buildAppBar(context),
+      appBar: _buildAppBar(context, appColors),
       body: Stack(
         children: [
-          _buildBackground(),
+          _buildBackground(appColors),
           ListView(
             padding: const EdgeInsets.fromLTRB(16, 120, 16, 40),
-            children: _buildDashboardItems(context),
+            children: _buildDashboardItems(context, appColors),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildTabletDashboard(BuildContext context) {
+  Widget _buildTabletDashboard(BuildContext context, AppColors appColors) {
     return Scaffold(
-      appBar: _buildAppBar(context),
+      appBar: _buildAppBar(context, appColors),
       body: Stack(
         children: [
-          _buildBackground(),
+          _buildBackground(appColors),
           Row(
             children: [
               Container(
                 width: 300,
-                decoration: BoxDecoration(border: Border(right: BorderSide(color: Colors.white.withValues(alpha: 0.1)))),
+                decoration: BoxDecoration(
+                  border: Border(
+                    right: BorderSide(color: appColors.accent.withAlpha(12)),
+                  ),
+                ),
                 child: ListView(
                   padding: const EdgeInsets.all(16),
-                  children: _buildDashboardItems(context, isCompact: true),
+                  children: _buildDashboardItems(context, appColors, isCompact: true),
                 ),
               ),
               Expanded(
@@ -98,7 +106,7 @@ class _MainDashboardState extends ConsumerState<MainDashboard> {
                         child: Image.asset('assets/images/app_logo.jpg', width: 200, height: 200),
                       ),
                       const SizedBox(height: 24),
-                      const Text('Select a tool to begin clinical synthesis', style: TextStyle(color: Colors.white24)),
+                      Text('Select a tool to begin clinical synthesis', style: TextStyle(color: appColors.textDim)),
                     ],
                   ),
                 ),
@@ -110,7 +118,7 @@ class _MainDashboardState extends ConsumerState<MainDashboard> {
     );
   }
 
-  PreferredSizeWidget _buildAppBar(BuildContext context) {
+  PreferredSizeWidget _buildAppBar(BuildContext context, AppColors appColors) {
     return AppBar(
       title: Row(
         mainAxisSize: MainAxisSize.min,
@@ -123,32 +131,39 @@ class _MainDashboardState extends ConsumerState<MainDashboard> {
                 child: Image.asset('assets/images/app_logo.jpg', width: 24, height: 24),
               ),
             ),
-          const Text('🎹🦞 OPEN VETERINARIAN'),
+          Text('🎹🦞 OPEN VETERINARIAN', style: TextStyle(color: appColors.accent)),
         ],
       ),
       actions: [
-        IconButton(icon: const Icon(Icons.settings, color: Colors.cyanAccent), onPressed: () => _navigateTo(context, const SettingsView())),
         IconButton(
-          icon: const Icon(Icons.search, color: Colors.cyanAccent),
+          icon: Icon(Icons.settings, color: appColors.accent),
+          onPressed: () => _navigateTo(context, const SettingsView()),
+        ),
+        IconButton(
+          icon: Icon(Icons.search, color: appColors.accent),
           onPressed: () {
-            showSearch(context: context, delegate: GlobalSearchDelegate(ref, onNavigate: (view) => _navigateTo(context, view)));
+            showSearch(context: context, delegate: GlobalSearchDelegate(ref, appColors, onNavigate: (view) => _navigateTo(context, view)));
           },
         ),
       ],
     );
   }
 
-  Widget _buildBackground() {
+  Widget _buildBackground(AppColors appColors) {
     return Stack(
       children: [
-        Positioned.fill(child: CustomPaint(painter: NeonGridBackground(gridColor: Colors.cyan))),
+        Positioned.fill(child: CustomPaint(painter: NeonGridBackground(gridColor: appColors.gridColor))),
         Positioned.fill(
           child: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Colors.black.withValues(alpha: 0.8), Colors.transparent, Colors.black.withOpacity(0.8)],
+                colors: [
+                  Theme.of(context).scaffoldBackgroundColor.withValues(alpha: 0.8),
+                  Colors.transparent,
+                  Theme.of(context).scaffoldBackgroundColor.withValues(alpha: 0.8),
+                ],
               ),
             ),
           ),
@@ -165,7 +180,7 @@ class _MainDashboardState extends ConsumerState<MainDashboard> {
     }
   }
 
-  List<Widget> _buildDashboardItems(BuildContext context, {bool isCompact = false}) {
+  List<Widget> _buildDashboardItems(BuildContext context, AppColors appColors, {bool isCompact = false}) {
     return [
       if (!isCompact) ...[
         Center(
@@ -176,93 +191,94 @@ class _MainDashboardState extends ConsumerState<MainDashboard> {
         ),
         const SizedBox(height: 24),
       ],
-      _buildSectionHeader('Clinical Reference'),
-      _buildMenuCard(context, Icons.pets, 'Species Vitals', 'HR, Temp, Resp.', const SpeciesVitalsView(), isCompact),
-      _buildMenuCard(context, Icons.medication, 'Drug Formulary', 'Dosages & indications.', const DrugFormularyView(), isCompact),
-      _buildMenuCard(context, Icons.science, 'Lab Results', 'Reference ranges.', const LabReferenceView(), isCompact),
-      _buildMenuCard(context, Icons.biotech, 'Pathology Hub', 'Disease profiles.', const PathologyListView(), isCompact, glowColor: Colors.orangeAccent),
-      _buildMenuCard(context, Icons.settings_overscan, 'Imaging Hub', 'X-Ray & Ultrasound.', const ImagingReferenceListView(), isCompact, glowColor: Colors.blueAccent),
-      _buildMenuCard(context, Icons.visibility, 'Ophthalmic Hub', 'Eye disease reference.', const OphthalmicHubView(), isCompact),
-      _buildMenuCard(context, Icons.psychology, 'Neurology HUD', 'Reflex checklists.', const NeurologyHudView(), isCompact, glowColor: Colors.purpleAccent),
-      _buildMenuCard(context, Icons.warning_amber, 'Emergency Triage', 'A-B-C-D-E checklists.', const TriageHudView(), isCompact, glowColor: Colors.redAccent),
-      _buildMenuCard(context, Icons.accessibility_new, 'Anatomy Atlas', 'Skeletal & joints.', const AnatomyAtlasView(), isCompact, glowColor: Colors.greenAccent),
-      _buildMenuCard(context, Icons.monitor_heart, 'ECG Library', 'Cardiac patterns.', const EcgLibraryView(), isCompact, glowColor: Colors.redAccent),
-      _buildMenuCard(context, Icons.video_library, 'Video Library', 'Clinical techniques.', const VideoLibraryView(), isCompact, glowColor: Colors.pinkAccent),
-      _buildMenuCard(context, Icons.menu_book, 'Client Education', 'Diagrams for owners.', const ClientEducationHubView(), isCompact, glowColor: Colors.tealAccent),
-      
+      _buildSectionHeader('Clinical Reference', appColors),
+      _buildMenuCard(context, Icons.pets, 'Species Vitals', 'HR, Temp, Resp.', const SpeciesVitalsView(), appColors, isCompact),
+      _buildMenuCard(context, Icons.medication, 'Drug Formulary', 'Dosages & indications.', const DrugFormularyView(), appColors, isCompact),
+      _buildMenuCard(context, Icons.science, 'Lab Results', 'Reference ranges.', const LabReferenceView(), appColors, isCompact),
+      _buildMenuCard(context, Icons.biotech, 'Pathology Hub', 'Disease profiles.', const PathologyListView(), appColors, isCompact, glowColor: appColors.warning),
+      _buildMenuCard(context, Icons.settings_overscan, 'Imaging Hub', 'X-Ray & Ultrasound.', const ImagingReferenceListView(), appColors, isCompact, glowColor: appColors.accent),
+      _buildMenuCard(context, Icons.visibility, 'Ophthalmic Hub', 'Eye disease reference.', const OphthalmicHubView(), appColors, isCompact),
+      _buildMenuCard(context, Icons.psychology, 'Neurology HUD', 'Reflex checklists.', const NeurologyHudView(), appColors, isCompact, glowColor: appColors.accentTertiary),
+      _buildMenuCard(context, Icons.warning_amber, 'Emergency Triage', 'A-B-C-D-E checklists.', const TriageHudView(), appColors, isCompact, glowColor: appColors.danger),
+      _buildMenuCard(context, Icons.accessibility_new, 'Anatomy Atlas', 'Skeletal & joints.', const AnatomyAtlasView(), appColors, isCompact, glowColor: appColors.success),
+      _buildMenuCard(context, Icons.monitor_heart, 'ECG Library', 'Cardiac patterns.', const EcgLibraryView(), appColors, isCompact, glowColor: appColors.danger),
+      _buildMenuCard(context, Icons.video_library, 'Video Library', 'Clinical techniques.', const VideoLibraryView(), appColors, isCompact, glowColor: appColors.accentTertiary),
+      _buildMenuCard(context, Icons.menu_book, 'Client Education', 'Diagrams for owners.', const ClientEducationHubView(), appColors, isCompact, glowColor: appColors.success),
+
       const SizedBox(height: 24),
-      _buildSectionHeader('Calculators & Tools'),
-      _buildMenuCard(context, Icons.report_problem, 'Emergency / CPR', 'Crash cart math.', const EmergencyCalculatorView(), isCompact, glowColor: Colors.redAccent),
-      _buildMenuCard(context, Icons.calculate, 'Dose Calculator', 'Weight-based math.', const DoseCalculatorView(), isCompact, glowColor: Colors.purpleAccent),
-      _buildMenuCard(context, Icons.water_drop, 'Fluid Therapy', 'Maintenance & deficit.', const FluidCalculatorView(), isCompact, glowColor: Colors.blueAccent),
-      _buildMenuCard(context, Icons.add_circle_outline, 'Fluid Additives', 'K+ or Dextrose.', const FluidAdditivesCalculatorView(), isCompact),
-      _buildMenuCard(context, Icons.trending_up, 'CRI Calculator', 'Constant infusion.', const CriCalculatorView(), isCompact, glowColor: Colors.greenAccent),
-      _buildMenuCard(context, Icons.bloodtype, 'Blood Gas', 'Acid-base interpreter.', const BloodGasInterpreterView(), isCompact, glowColor: Colors.cyanAccent),
-      _buildMenuCard(context, Icons.swap_horiz, 'Unit Converter', 'Lbs/Kg & F/C.', const UnitConverterView(), isCompact, glowColor: Colors.orangeAccent),
-      _buildMenuCard(context, Icons.inventory, 'Inventory Tracker', 'Stock monitoring.', const InventoryTrackerView(), isCompact),
-      
+      _buildSectionHeader('Calculators & Tools', appColors),
+      _buildMenuCard(context, Icons.report_problem, 'Emergency / CPR', 'Crash cart math.', const EmergencyCalculatorView(), appColors, isCompact, glowColor: appColors.danger),
+      _buildMenuCard(context, Icons.calculate, 'Dose Calculator', 'Weight-based math.', const DoseCalculatorView(), appColors, isCompact, glowColor: appColors.accentTertiary),
+      _buildMenuCard(context, Icons.water_drop, 'Fluid Therapy', 'Maintenance & deficit.', const FluidCalculatorView(), appColors, isCompact, glowColor: appColors.accent),
+      _buildMenuCard(context, Icons.add_circle_outline, 'Fluid Additives', 'K+ or Dextrose.', const FluidAdditivesCalculatorView(), appColors, isCompact),
+      _buildMenuCard(context, Icons.trending_up, 'CRI Calculator', 'Constant infusion.', const CriCalculatorView(), appColors, isCompact, glowColor: appColors.success),
+      _buildMenuCard(context, Icons.bloodtype, 'Blood Gas', 'Acid-base interpreter.', const BloodGasInterpreterView(), appColors, isCompact, glowColor: appColors.accent),
+      _buildMenuCard(context, Icons.swap_horiz, 'Unit Converter', 'Lbs/Kg & F/C.', const UnitConverterView(), appColors, isCompact, glowColor: appColors.warning),
+      _buildMenuCard(context, Icons.inventory, 'Inventory Tracker', 'Stock monitoring.', const InventoryTrackerView(), appColors, isCompact),
+
       const SizedBox(height: 24),
-      _buildSectionHeader('Intelligence'),
-      _buildMenuCard(context, Icons.auto_awesome, 'AI Diagnosis', 'Synthesis patterns.', const AiDiagnosisSupportView(), isCompact, glowColor: Colors.purpleAccent),
-      
+      _buildSectionHeader('Intelligence', appColors),
+      _buildMenuCard(context, Icons.auto_awesome, 'AI Diagnosis', 'Synthesis patterns.', const AiDiagnosisSupportView(), appColors, isCompact, glowColor: appColors.accentTertiary),
+
       const SizedBox(height: 24),
-      _buildSectionHeader('Anesthesia & Safety'),
-      _buildMenuCard(context, Icons.assignment, 'Protocols', 'ASA-based drug regimens.', const AnesthesiaProtocolsView(), isCompact, glowColor: Colors.purpleAccent),
-      _buildMenuCard(context, Icons.fact_check, 'Checklist', 'Interactive safety checks.', const AnesthesiaChecklistView(), isCompact, glowColor: Colors.redAccent),
-      _buildMenuCard(context, Icons.timer, 'Anesthesia Timer', 'Real-time monitoring.', const AnesthesiaTimerView(), isCompact, glowColor: Colors.orangeAccent),
-      
+      _buildSectionHeader('Anesthesia & Safety', appColors),
+      _buildMenuCard(context, Icons.assignment, 'Protocols', 'ASA-based drug regimens.', const AnesthesiaProtocolsView(), appColors, isCompact, glowColor: appColors.accentTertiary),
+      _buildMenuCard(context, Icons.fact_check, 'Checklist', 'Interactive safety checks.', const AnesthesiaChecklistView(), appColors, isCompact, glowColor: appColors.danger),
+      _buildMenuCard(context, Icons.timer, 'Anesthesia Timer', 'Real-time monitoring.', const AnesthesiaTimerView(), appColors, isCompact, glowColor: appColors.warning),
+
       const SizedBox(height: 24),
-      _buildSectionHeader('Patient Reports & Logs'),
-      _buildMenuCard(context, Icons.analytics, 'Lab Logs', 'Track patient trends.', const LaboratoryLogsView(), isCompact, glowColor: Colors.blueAccent),
-      _buildMenuCard(context, Icons.mic, 'Surgical Notes', 'Note dictation (TTS).', const SurgicalNoteTakerView(), isCompact, glowColor: Colors.pinkAccent),
-      _buildMenuCard(context, Icons.picture_as_pdf, 'Client Summary', 'Generate PDF reports.', null, isCompact, glowColor: Colors.greenAccent, isDialog: true),
-      
+      _buildSectionHeader('Patient Reports & Logs', appColors),
+      _buildMenuCard(context, Icons.analytics, 'Lab Logs', 'Track patient trends.', const LaboratoryLogsView(), appColors, isCompact, glowColor: appColors.accent),
+      _buildMenuCard(context, Icons.mic, 'Surgical Notes', 'Note dictation (TTS).', const SurgicalNoteTakerView(), appColors, isCompact, glowColor: appColors.accentTertiary),
+      _buildMenuCard(context, Icons.picture_as_pdf, 'Client Summary', 'Generate PDF reports.', null, appColors, isCompact, glowColor: appColors.success, isDialog: true),
+
       if (!isCompact) ...[
         const SizedBox(height: 40),
-        const Center(
+        Center(
           child: Text(
             '🎹🦞 VERSION 1.7.0 "NEON-SURGEON"',
-            style: TextStyle(fontSize: 10, color: Colors.grey, letterSpacing: 2, fontFamily: 'monospace'),
+            style: TextStyle(fontSize: 10, color: appColors.textDim, letterSpacing: 2, fontFamily: 'monospace'),
           ),
         ),
       ],
     ];
   }
 
-  Widget _buildMenuCard(BuildContext context, IconData icon, String title, String subtitle, Widget? view, bool isCompact, {Color glowColor = Colors.cyanAccent, bool isDialog = false}) {
+  Widget _buildMenuCard(BuildContext context, IconData icon, String title, String subtitle, Widget? view, AppColors appColors, bool isCompact, {Color? glowColor, bool isDialog = false}) {
+    final gc = glowColor ?? appColors.glowColor;
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: GlowCard(
-        glowColor: glowColor,
+        glowColor: gc,
         child: ListTile(
-          onTap: isDialog 
-            ? () => _showReportDialog(context, ref)
+          onTap: isDialog
+            ? () => _showReportDialog(context, ref, appColors)
             : (view != null ? () => _navigateTo(context, view) : null),
           contentPadding: EdgeInsets.symmetric(horizontal: isCompact ? 12 : 20, vertical: isCompact ? 0 : 8),
           leading: Container(
             padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(color: glowColor.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
-            child: Icon(icon, color: glowColor, size: isCompact ? 20 : 28),
+            decoration: BoxDecoration(color: gc.withAlpha(25), borderRadius: BorderRadius.circular(8)),
+            child: Icon(icon, color: gc, size: isCompact ? 20 : 28),
           ),
-          title: Text(title, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: isCompact ? 13 : 16)),
-          subtitle: isCompact ? null : Text(subtitle, style: const TextStyle(fontSize: 12, color: Colors.grey)),
-          trailing: isCompact ? null : Icon(Icons.chevron_right, color: glowColor.withValues(alpha: 0.5)),
+          title: Text(title, style: TextStyle(fontWeight: FontWeight.bold, color: appColors.accent.withAlpha(230), fontSize: isCompact ? 13 : 16)),
+          subtitle: isCompact ? null : Text(subtitle, style: TextStyle(fontSize: 12, color: appColors.textDim)),
+          trailing: isCompact ? null : Icon(Icons.chevron_right, color: gc.withAlpha(77)),
         ),
       ),
     );
   }
 
-  Widget _buildSectionHeader(String title) {
+  Widget _buildSectionHeader(String title, AppColors appColors) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 4),
       child: Text(
         title.toUpperCase(),
-        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 3.0, color: Colors.white70),
+        style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 3.0, color: appColors.sectionHeader),
       ),
     );
   }
 
-  void _showReportDialog(BuildContext context, WidgetRef ref) {
+  void _showReportDialog(BuildContext context, WidgetRef ref, AppColors appColors) {
     final petNameController = TextEditingController();
     final reasonController = TextEditingController();
     String species = 'Canine';
@@ -270,36 +286,66 @@ class _MainDashboardState extends ConsumerState<MainDashboard> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: const Color(0xFF0A0A0A),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16), side: const BorderSide(color: Colors.cyanAccent, width: 0.5)),
-        title: const Text('GENERATE CLIENT SUMMARY', style: TextStyle(color: Colors.cyanAccent, fontSize: 16, letterSpacing: 1.5)),
+        backgroundColor: appColors.card,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: BorderSide(color: appColors.accent, width: 0.5),
+        ),
+        title: Text('GENERATE CLIENT SUMMARY', style: TextStyle(color: appColors.accent, fontSize: 16, letterSpacing: 1.5)),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            TextField(controller: petNameController, decoration: const InputDecoration(labelText: 'Pet Name', labelStyle: TextStyle(color: Colors.grey))),
+            TextField(
+              controller: petNameController,
+              style: TextStyle(color: appColors.accent.withAlpha(204)),
+              decoration: InputDecoration(
+                labelText: 'Pet Name',
+                labelStyle: TextStyle(color: appColors.textDim),
+                border: OutlineInputBorder(),
+                enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: appColors.accent.withAlpha(25))),
+              ),
+            ),
             DropdownButtonFormField<String>(
               value: species,
-              dropdownColor: Colors.black,
+              dropdownColor: appColors.card,
+              style: TextStyle(color: appColors.accent),
               items: const [
                 DropdownMenuItem(value: 'Canine', child: Text('Canine')),
                 DropdownMenuItem(value: 'Feline', child: Text('Feline')),
               ],
               onChanged: (val) => species = val!,
-              decoration: const InputDecoration(labelText: 'Species', labelStyle: TextStyle(color: Colors.grey)),
+              decoration: InputDecoration(
+                labelText: 'Species',
+                labelStyle: TextStyle(color: appColors.textDim),
+                border: OutlineInputBorder(),
+                enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: appColors.accent.withAlpha(25))),
+              ),
             ),
-            TextField(controller: reasonController, decoration: const InputDecoration(labelText: 'Reason for Visit', labelStyle: TextStyle(color: Colors.grey))),
+            TextField(
+              controller: reasonController,
+              style: TextStyle(color: appColors.accent.withAlpha(204)),
+              decoration: InputDecoration(
+                labelText: 'Reason for Visit',
+                labelStyle: TextStyle(color: appColors.textDim),
+                border: OutlineInputBorder(),
+                enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: appColors.accent.withAlpha(25))),
+              ),
+            ),
           ],
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('CANCEL', style: TextStyle(color: Colors.grey))),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('CANCEL', style: TextStyle(color: appColors.textDim)),
+          ),
           ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.cyanAccent, foregroundColor: Colors.black),
+            style: ElevatedButton.styleFrom(backgroundColor: appColors.accent, foregroundColor: Colors.black),
             onPressed: () {
               final profile = ref.read(profileNotifierProvider);
               ReportService.generateClientSummary(
                 petName: petNameController.text,
                 species: species,
-                weight: 5.0, // Placeholder
+                weight: 5.0,
                 reasonForVisit: reasonController.text,
                 findings: {
                   'Temperature': '38.5 °C',
@@ -321,9 +367,10 @@ class _MainDashboardState extends ConsumerState<MainDashboard> {
 
 class GlobalSearchDelegate extends SearchDelegate {
   final WidgetRef ref;
+  final AppColors appColors;
   final Function(Widget) onNavigate;
 
-  GlobalSearchDelegate(this.ref, {required this.onNavigate});
+  GlobalSearchDelegate(this.ref, this.appColors, {required this.onNavigate});
 
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -339,7 +386,7 @@ class GlobalSearchDelegate extends SearchDelegate {
   List<Widget>? buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: const Icon(Icons.clear),
+        icon: Icon(Icons.clear, color: appColors.accent),
         onPressed: () => query = '',
       ),
     ];
@@ -348,7 +395,7 @@ class GlobalSearchDelegate extends SearchDelegate {
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
-      icon: const Icon(Icons.arrow_back),
+      icon: Icon(Icons.arrow_back, color: appColors.accent),
       onPressed: () => close(context, null),
     );
   }
@@ -368,20 +415,24 @@ class GlobalSearchDelegate extends SearchDelegate {
 
     if (query.isEmpty) {
       return Container(
-        color: Colors.black,
-        child: const Center(child: Text('Search drugs, species, labs, or pathology...', style: TextStyle(color: Colors.grey, fontFamily: 'monospace'))),
+        color: appColors.surface,
+        child: Center(
+          child: Text('Search drugs, species, labs, or pathology...', style: TextStyle(color: appColors.textDim, fontFamily: 'monospace')),
+        ),
       );
     }
 
     if (results.isEmpty) {
       return Container(
-        color: Colors.black,
-        child: const Center(child: Text('No results found.', style: TextStyle(color: Colors.redAccent, fontFamily: 'monospace'))),
+        color: appColors.surface,
+        child: Center(
+          child: Text('No results found.', style: TextStyle(color: appColors.danger, fontFamily: 'monospace')),
+        ),
       );
     }
 
     return Container(
-      color: Colors.black,
+      color: appColors.surface,
       child: ListView.builder(
         itemCount: results.length,
         itemBuilder: (context, index) {
@@ -406,11 +457,10 @@ class GlobalSearchDelegate extends SearchDelegate {
           }
 
           return ListTile(
-            leading: Icon(icon, color: Colors.cyanAccent),
-            title: Text(result.title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-            subtitle: Text(result.subtitle, style: const TextStyle(color: Colors.grey)),
+            leading: Icon(icon, color: appColors.accent),
+            title: Text(result.title, style: TextStyle(color: appColors.accent.withAlpha(230), fontWeight: FontWeight.bold)),
+            subtitle: Text(result.subtitle, style: TextStyle(color: appColors.textDim)),
             onTap: () {
-              // Detailed Navigation
               Widget view;
               switch (result.type) {
                 case SearchResultType.species:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_theme.dart';
 import '../ui/glow_card.dart';
 
 class ClientEducationView extends StatelessWidget {
@@ -6,6 +7,7 @@ class ClientEducationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     return Scaffold(
       appBar: AppBar(title: const Text('CLIENT EDUCATION')),
       body: ListView(
@@ -18,7 +20,8 @@ class ClientEducationView extends StatelessWidget {
               _EducationTopic('Canine Osteoarthritis', 'Managing joint pain and mobility.'),
               _EducationTopic('Vaccination Schedules', 'Why core vaccines matter.'),
             ],
-            Colors.greenAccent,
+            appColors.success,
+            appColors,
           ),
           const SizedBox(height: 24),
           _buildEducationSection(
@@ -28,7 +31,8 @@ class ClientEducationView extends StatelessWidget {
               _EducationTopic('The Feline Kidney', 'Understanding filtration and CKD.'),
               _EducationTopic('Digestive Tract', 'From esophagus to colon.'),
             ],
-            Colors.blueAccent,
+            appColors.accent,
+            appColors,
           ),
           const SizedBox(height: 24),
           _buildEducationSection(
@@ -37,14 +41,15 @@ class ClientEducationView extends StatelessWidget {
               _EducationTopic('Heartworm Prevention', 'The lifecycle of Dirofilaria immitis.'),
               _EducationTopic('Nutrition & Weight', 'Caloric needs and BCS scores.'),
             ],
-            Colors.purpleAccent,
+            appColors.accentTertiary,
+            appColors,
           ),
         ],
       ),
     );
   }
 
-  Widget _buildEducationSection(String title, List<_EducationTopic> topics, Color color) {
+  Widget _buildEducationSection(String title, List<_EducationTopic> topics, Color color, AppColors appColors) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -63,8 +68,8 @@ class ClientEducationView extends StatelessWidget {
               },
               leading: Icon(Icons.menu_book, color: color),
               title: Text(topic.title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-              subtitle: Text(topic.subtitle, style: const TextStyle(fontSize: 12, color: Colors.grey)),
-              trailing: const Icon(Icons.open_in_new, size: 16, color: Colors.grey),
+              subtitle: Text(topic.subtitle, style: TextStyle(fontSize: 12, color: appColors.textDim)),
+              trailing: Icon(Icons.open_in_new, size: 16, color: appColors.textDim),
             ),
           ),
         )),

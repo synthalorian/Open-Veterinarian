@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_veterinarian/features/theme/app_theme.dart';
 import 'data/drug_reference.dart';
 import '../ui/glow_card.dart';
 
@@ -9,6 +10,7 @@ class DrugDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     return Scaffold(
       appBar: AppBar(
         title: Text(drug.name.toUpperCase()),
@@ -18,30 +20,30 @@ class DrugDetailView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildHeader(),
+            _buildHeader(appColors),
             const SizedBox(height: 24),
-            _buildSectionTitle('Description'),
+            _buildSectionTitle('Description', appColors),
             Text(
               drug.description,
-              style: const TextStyle(fontSize: 16, color: Colors.grey, height: 1.5),
+              style: TextStyle(fontSize: 16, color: appColors.textDim, height: 1.5),
             ),
             const SizedBox(height: 24),
-            _buildSectionTitle('Species Dosages'),
-            ...drug.speciesDosages.entries.map((e) => _buildDosageCard(e.key, e.value)),
+            _buildSectionTitle('Species Dosages', appColors),
+            ...drug.speciesDosages.entries.map((e) => _buildDosageCard(e.key, e.value, appColors)),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(AppColors appColors) {
     return GlowCard(
-      glowColor: Colors.cyanAccent,
+      glowColor: appColors.accent,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Row(
           children: [
-            const Icon(Icons.medication, size: 48, color: Colors.cyanAccent),
+            Icon(Icons.medication, size: 48, color: appColors.accent),
             const SizedBox(width: 20),
             Expanded(
               child: Column(
@@ -49,11 +51,11 @@ class DrugDetailView extends StatelessWidget {
                 children: [
                   Text(
                     drug.name,
-                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: appColors.accent),
                   ),
                   Text(
                     drug.category,
-                    style: const TextStyle(fontSize: 14, color: Colors.cyanAccent, letterSpacing: 1.2),
+                    style: TextStyle(fontSize: 14, color: appColors.accent, letterSpacing: 1.2),
                   ),
                 ],
               ),
@@ -64,38 +66,38 @@ class DrugDetailView extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionTitle(String title) {
+  Widget _buildSectionTitle(String title, AppColors appColors) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
       child: Text(
         title.toUpperCase(),
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.bold,
           letterSpacing: 2.0,
-          color: Colors.white70,
+          color: appColors.sectionHeader,
         ),
       ),
     );
   }
 
-  Widget _buildDosageCard(String species, Dosage dosage) {
+  Widget _buildDosageCard(String species, Dosage dosage, AppColors appColors) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
       child: GlowCard(
-        glowColor: Colors.purpleAccent,
+        glowColor: appColors.accentSecondary,
         child: ListTile(
-          leading: const Icon(Icons.pets, color: Colors.purpleAccent),
+          leading: Icon(Icons.pets, color: appColors.accentSecondary),
           title: Text(
             species.toUpperCase(),
-            style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+            style: TextStyle(fontWeight: FontWeight.bold, color: appColors.accent),
           ),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 4),
-              Text('Range: ${dosage.min}-${dosage.max} ${dosage.unit}', style: const TextStyle(color: Colors.grey)),
-              Text('Route: ${dosage.route} | Freq: ${dosage.frequency}', style: const TextStyle(color: Colors.grey)),
+              Text('Range: ${dosage.min}-${dosage.max} ${dosage.unit}', style: TextStyle(color: appColors.textDim)),
+              Text('Route: ${dosage.route} | Freq: ${dosage.frequency}', style: TextStyle(color: appColors.textDim)),
             ],
           ),
         ),

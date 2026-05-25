@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_veterinarian/features/theme/app_theme.dart';
 import 'data/lab_reference.dart';
 import '../ui/glow_card.dart';
 
@@ -9,6 +10,7 @@ class LabDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     return Scaffold(
       appBar: AppBar(
         title: Text(lab.name.toUpperCase()),
@@ -18,15 +20,15 @@ class LabDetailView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildHeader(),
+            _buildHeader(appColors),
             const SizedBox(height: 24),
-            _buildSectionTitle('Reference Ranges'),
-            ...lab.speciesRanges.entries.map((e) => _buildRangeCard(e.key, e.value)),
+            _buildSectionTitle('Reference Ranges', appColors),
+            ...lab.speciesRanges.entries.map((e) => _buildRangeCard(e.key, e.value, appColors)),
             const SizedBox(height: 24),
-            _buildSectionTitle('Category'),
+            _buildSectionTitle('Category', appColors),
             Text(
               lab.category,
-              style: const TextStyle(fontSize: 16, color: Colors.grey, height: 1.5),
+              style: TextStyle(fontSize: 16, color: appColors.textDim, height: 1.5),
             ),
           ],
         ),
@@ -34,14 +36,14 @@ class LabDetailView extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(AppColors appColors) {
     return GlowCard(
-      glowColor: Colors.cyanAccent,
+      glowColor: appColors.accent,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Row(
           children: [
-            const Icon(Icons.science, size: 48, color: Colors.cyanAccent),
+            Icon(Icons.science, size: 48, color: appColors.accent),
             const SizedBox(width: 20),
             Expanded(
               child: Column(
@@ -49,11 +51,11 @@ class LabDetailView extends StatelessWidget {
                 children: [
                   Text(
                     lab.name,
-                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: appColors.accent),
                   ),
                   Text(
                     '(${lab.abbreviation})',
-                    style: const TextStyle(fontSize: 14, color: Colors.grey, fontStyle: FontStyle.italic),
+                    style: TextStyle(fontSize: 14, color: appColors.textDim, fontStyle: FontStyle.italic),
                   ),
                 ],
               ),
@@ -64,39 +66,39 @@ class LabDetailView extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionTitle(String title) {
+  Widget _buildSectionTitle(String title, AppColors appColors) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
       child: Text(
         title.toUpperCase(),
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.bold,
           letterSpacing: 2.0,
-          color: Colors.white70,
+          color: appColors.sectionHeader,
         ),
       ),
     );
   }
 
-  Widget _buildRangeCard(String species, LabRange range) {
+  Widget _buildRangeCard(String species, LabRange range, AppColors appColors) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
       child: GlowCard(
-        glowColor: Colors.greenAccent,
+        glowColor: appColors.success,
         child: ListTile(
-          leading: const Icon(Icons.pets, color: Colors.greenAccent),
+          leading: Icon(Icons.pets, color: appColors.success),
           title: Text(
             species.toUpperCase(),
-            style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+            style: TextStyle(fontWeight: FontWeight.bold, color: appColors.accent),
           ),
           trailing: Text(
             '${range.min} - ${range.max} ${range.unit}',
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
               fontFamily: 'monospace',
-              color: Colors.cyanAccent,
+              color: appColors.accent,
             ),
           ),
         ),

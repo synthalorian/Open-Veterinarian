@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_veterinarian/features/theme/app_theme.dart';
 import 'data/pathology.dart';
 import '../ui/glow_card.dart';
 
@@ -9,6 +10,7 @@ class PathologyDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     return Scaffold(
       appBar: AppBar(
         title: Text(pathology.name.toUpperCase()),
@@ -18,28 +20,28 @@ class PathologyDetailView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildHeader(),
+            _buildHeader(appColors),
             const SizedBox(height: 24),
-            _buildSectionTitle('Description'),
+            _buildSectionTitle('Description', appColors),
             Text(
               pathology.description,
-              style: const TextStyle(fontSize: 16, color: Colors.grey, height: 1.5),
+              style: TextStyle(fontSize: 16, color: appColors.textDim, height: 1.5),
             ),
             const SizedBox(height: 24),
-            _buildSectionTitle('Clinical Signs'),
-            ...pathology.clinicalSigns.map((sign) => _buildBulletPoint(sign)),
+            _buildSectionTitle('Clinical Signs', appColors),
+            ...pathology.clinicalSigns.map((sign) => _buildBulletPoint(sign, appColors)),
             const SizedBox(height: 24),
-            _buildSectionTitle('Diagnostic Steps'),
-            ...pathology.diagnosticSteps.map((step) => _buildBulletPoint(step)),
+            _buildSectionTitle('Diagnostic Steps', appColors),
+            ...pathology.diagnosticSteps.map((step) => _buildBulletPoint(step, appColors)),
             const SizedBox(height: 24),
-            _buildSectionTitle('Management Summary'),
+            _buildSectionTitle('Management Summary', appColors),
             GlowCard(
-              glowColor: Colors.orangeAccent,
+              glowColor: appColors.warning,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
                   pathology.managementSummary,
-                  style: const TextStyle(fontSize: 14, color: Colors.white, height: 1.4),
+                  style: TextStyle(fontSize: 14, color: appColors.accent, height: 1.4),
                 ),
               ),
             ),
@@ -49,14 +51,14 @@ class PathologyDetailView extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(AppColors appColors) {
     return GlowCard(
-      glowColor: Colors.orangeAccent,
+      glowColor: appColors.warning,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Row(
           children: [
-            const Icon(Icons.biotech, size: 48, color: Colors.orangeAccent),
+            Icon(Icons.biotech, size: 48, color: appColors.warning),
             const SizedBox(width: 20),
             Expanded(
               child: Column(
@@ -64,11 +66,11 @@ class PathologyDetailView extends StatelessWidget {
                 children: [
                   Text(
                     pathology.name,
-                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: appColors.accent),
                   ),
                   Text(
                     pathology.category,
-                    style: const TextStyle(fontSize: 14, color: Colors.orangeAccent, letterSpacing: 1.2),
+                    style: TextStyle(fontSize: 14, color: appColors.warning, letterSpacing: 1.2),
                   ),
                 ],
               ),
@@ -79,32 +81,32 @@ class PathologyDetailView extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionTitle(String title) {
+  Widget _buildSectionTitle(String title, AppColors appColors) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
       child: Text(
         title.toUpperCase(),
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.bold,
           letterSpacing: 2.0,
-          color: Colors.white70,
+          color: appColors.sectionHeader,
         ),
       ),
     );
   }
 
-  Widget _buildBulletPoint(String text) {
+  Widget _buildBulletPoint(String text, AppColors appColors) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0, left: 8.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('• ', style: TextStyle(color: Colors.orangeAccent, fontSize: 18, fontWeight: FontWeight.bold)),
+          Text('• ', style: TextStyle(color: appColors.warning, fontSize: 18, fontWeight: FontWeight.bold)),
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(fontSize: 15, color: Colors.white),
+              style: TextStyle(fontSize: 15, color: appColors.accent),
             ),
           ),
         ],

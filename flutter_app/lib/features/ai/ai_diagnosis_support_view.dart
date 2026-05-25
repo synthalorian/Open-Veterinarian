@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../ui/glow_card.dart';
+import 'package:open_veterinarian/features/theme/app_theme.dart';
 
 class AiDiagnosisSupportView extends ConsumerStatefulWidget {
   const AiDiagnosisSupportView({super.key});
@@ -16,15 +17,17 @@ class _AiDiagnosisSupportViewState extends ConsumerState<AiDiagnosisSupportView>
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
+
     return Scaffold(
       appBar: AppBar(title: const Text('AI DIAGNOSIS SUPPORT')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            const Text(
+            Text(
               'Enter clinical signs or lab results for synthclaw synthesis.',
-              style: TextStyle(color: Colors.grey, fontSize: 12),
+              style: TextStyle(color: appColors.textDim, fontSize: 12),
             ),
             const SizedBox(height: 16),
             TextField(
@@ -42,16 +45,16 @@ class _AiDiagnosisSupportViewState extends ConsumerState<AiDiagnosisSupportView>
                 icon: const Icon(Icons.psychology),
                 label: const Text('SYNTHESIZE'),
                 onPressed: _loading ? null : _synthesize,
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.purpleAccent, foregroundColor: Colors.black),
+                style: ElevatedButton.styleFrom(backgroundColor: appColors.accent, foregroundColor: appColors.surface),
               ),
             ),
             const SizedBox(height: 24),
-            if (_loading) const CircularProgressIndicator(color: Colors.purpleAccent),
+            if (_loading) CircularProgressIndicator(color: appColors.accent),
             if (_response.isNotEmpty)
               Expanded(
                 child: SingleChildScrollView(
                   child: GlowCard(
-                    glowColor: Colors.purpleAccent,
+                    glowColor: appColors.accent,
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(

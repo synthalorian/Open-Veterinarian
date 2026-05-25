@@ -31,6 +31,7 @@ class DatabaseService {
   static const String profileBoxName = 'user_profile';
   static const String protocolsBoxName = 'anesthesia_protocols';
   static const String labLogBoxName = 'patient_lab_logs';
+  static const String themeBoxName = 'app_theme';
 
   static Future<void> init() async {
     await Hive.initFlutter();
@@ -72,6 +73,7 @@ class DatabaseService {
     final profileBox = await Hive.openBox<UserProfile>(profileBoxName);
     final protocolsBox = await Hive.openBox<AnesthesiaProtocol>(protocolsBoxName);
     await Hive.openBox<PatientLabLog>(labLogBoxName);
+    await Hive.openBox<int>(themeBoxName);
 
     // Seed Data
     if (speciesBox.isEmpty) await speciesBox.addAll(initialVitalsData);
@@ -87,6 +89,8 @@ class DatabaseService {
     if (checklistBox.isEmpty) await checklistBox.addAll(initialChecklistData);
     if (profileBox.isEmpty) await profileBox.add(UserProfile());
     if (protocolsBox.isEmpty) await protocolsBox.addAll(initialProtocolData);
+    final themeBox = Hive.box<int>(themeBoxName);
+    if (themeBox.isEmpty) await themeBox.add(0);
   }
 
   static Box<SpeciesVitals> getSpeciesBox() => Hive.box<SpeciesVitals>(speciesBoxName);
@@ -104,4 +108,5 @@ class DatabaseService {
   static Box<UserProfile> getProfileBox() => Hive.box<UserProfile>(profileBoxName);
   static Box<AnesthesiaProtocol> getProtocolsBox() => Hive.box<AnesthesiaProtocol>(protocolsBoxName);
   static Box<PatientLabLog> getLabLogBox() => Hive.box<PatientLabLog>(labLogBoxName);
+  static Box<int> getThemeBox() => Hive.box<int>(themeBoxName);
 }

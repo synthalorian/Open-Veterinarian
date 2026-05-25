@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../../services/database_service.dart';
+import '../theme/app_theme.dart';
 import 'surgical_checklist.dart';
 
 class AnesthesiaChecklistView extends StatelessWidget {
@@ -42,6 +43,7 @@ class AnesthesiaChecklistView extends StatelessWidget {
   }
 
   Widget _buildPhaseGroup(BuildContext context, SurgicalChecklist phase) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -49,11 +51,11 @@ class AnesthesiaChecklistView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Text(
             phase.phase.toUpperCase(),
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
               letterSpacing: 1.2,
-              color: Colors.cyanAccent,
+              color: appColors.accent,
             ),
           ),
         ),
@@ -64,8 +66,8 @@ class AnesthesiaChecklistView extends StatelessWidget {
             child: CheckboxListTile(
               title: Text(item.task),
               value: item.isCompleted,
-              activeColor: Colors.cyanAccent,
-              checkColor: Colors.black,
+              activeColor: appColors.accent,
+              checkColor: appColors.surface,
               onChanged: (bool? value) {
                 item.isCompleted = value ?? false;
                 phase.save(); // Persist change via Hive

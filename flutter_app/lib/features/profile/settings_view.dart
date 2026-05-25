@@ -191,7 +191,7 @@ class SettingsView extends ConsumerWidget {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () => authNotifier.signIn(emailController.text, passwordController.text),
-                      style: ElevatedButton.styleFrom(backgroundColor: appColors.success, foregroundColor: Colors.black),
+                      style: ElevatedButton.styleFrom(backgroundColor: appColors.success, foregroundColor: Colors.white),
                       child: const Text('LOGIN'),
                     ),
                   ),
@@ -238,7 +238,7 @@ class SettingsView extends ConsumerWidget {
                           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Profile synced to cloud.')));
                         }
                       },
-                      style: ElevatedButton.styleFrom(backgroundColor: appColors.success, foregroundColor: Colors.black),
+                      style: ElevatedButton.styleFrom(backgroundColor: appColors.success, foregroundColor: Colors.white),
                     ),
                   ),
                   const SizedBox(width: 12),

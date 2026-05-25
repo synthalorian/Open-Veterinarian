@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <style>
+    .organ { fill: #c0392b; opacity: 0.7; stroke: #8e44ad; stroke-width: 1.5; }
+    .organ-lung { fill: #e74c3c; opacity: 0.5; stroke: #c0392b; stroke-width: 1.5; }
+    .organ-liver { fill: #8b4513; opacity: 0.7; stroke: #654321; stroke-width: 1.5; }
+    .organ-kidney { fill: #d4a574; opacity: 0.7; stroke: #8b7355; stroke-width: 1.5; }
+    .organ-heart { fill: #dc143c; opacity: 0.8; stroke: #8b0000; stroke-width: 1.5; }
+    .organ-intestine { fill: #c8a882; opacity: 0.6; stroke: #a08060; stroke-width: 1.5; }
+    .organ-stomach { fill: #d4a574; opacity: 0.6; stroke: #b08060; stroke-width: 1.5; }
+    .organ-bladder { fill: #f0e68c; opacity: 0.6; stroke: #b8860b; stroke-width: 1.5; }
+    .label { font-family: monospace; font-size: 10px; fill: #555; }
+    .title { font-family: monospace; font-size: 16px; fill: #444; font-weight: bold; }
+    .line { stroke: #888; stroke-width: 0.8; stroke-dasharray: 3,2; fill: none; }
+  </style>
+  <text x="400" y="30" text-anchor="middle" class="title">Feline Internal Organs (Lateral View)</text>
+  <!-- Body outline -->
+  <path d="M100 140 Q120 95 180 85 Q250 75 300 80 Q380 80 450 90 Q520 100 560 120 Q620 150 680 170 Q750 190 770 210 Q780 230 760 250 Q720 270 680 280 Q600 300 500 310 Q400 315 300 310 Q200 300 140 280 Q90 250 80 210 Q75 180 100 140Z" fill="none" stroke="#ccc" stroke-width="2"/>
+  <!-- Cat head shape -->
+  <path d="M100 140 Q85 115 90 95 Q95 75 110 70 Q125 65 135 72 Q145 80 140 95" fill="none" stroke="#ccc" stroke-width="2"/>
+  <!-- Left ear -->
+  <path d="M95 85 L85 50 L110 70" fill="none" stroke="#ccc" stroke-width="2"/>
+  <!-- Right ear -->
+  <path d="M125 75 L140 45 L142 72" fill="none" stroke="#ccc" stroke-width="2"/>
+  <!-- Eye -->
+  <circle cx="110" cy="95" r="5" fill="#4a90d9" opacity="0.6"/>
+  <!-- Trachea -->
+  <path d="M120 140 Q150 150 180 155 Q220 160 260 162" fill="none" class="organ" stroke-width="3"/>
+  <!-- Lungs (left and right) -->
+  <ellipse cx="340" cy="180" rx="55" ry="40" class="organ-lung"/>
+  <ellipse cx="420" cy="185" rx="50" ry="38" class="organ-lung"/>
+  <!-- Heart -->
+  <path d="M355 170 Q365 155 380 165 Q395 175 385 190 Q375 205 365 195 Q355 185 355 170Z" class="organ-heart"/>
+  <text x="375" y="150" text-anchor="middle" class="label">Heart</text>
+  <path d="M355 190 L310 200" class="line"/>
+  <text x="290" y="203" text-anchor="middle" class="label">Lungs</text>
+  <!-- Diaphragm line -->
+  <path d="M250 210 Q350 240 470 215" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="8,4"/>
+  <!-- Liver -->
+  <path d="M300 230 Q340 215 380 225 Q420 235 410 260 Q390 280 350 275 Q310 270 300 230Z" class="organ-liver"/>
+  <text x="355" y="225" text-anchor="middle" class="label">Liver</text>
+  <!-- Stomach -->
+  <ellipse cx="320" cy="285" rx="35" ry="22" class="organ-stomach" transform="rotate(-15, 320, 285)"/>
+  <text x="300" y="290" text-anchor="middle" class="label">Stomach</text>
+  <!-- Spleen -->
+  <path d="M350 270 Q370 285 375 305 Q370 320 350 310 Q335 295 350 270Z" class="organ" opacity="0.5"/>
+  <text x="380" y="325" class="label">Spleen</text>
+  <!-- Small intestine -->
+  <path d="M340 300 Q360 320 340 340 Q320 360 340 380 Q360 400 340 410" fill="none" class="organ-intestine" stroke-width="5"/>
+  <path d="M350 300 Q370 325 355 345 Q340 365 360 385 Q375 400 360 415" fill="none" class="organ-intestine" stroke-width="4"/>
+  <!-- Large intestine / Colon -->
+  <path d="M320 290 Q280 310 260 340 Q250 370 270 390 Q300 400 340 390" fill="none" class="organ-intestine" stroke-width="6"/>
+  <text x="260" y="400" text-anchor="middle" class="label">Intestines</text>
+  <!-- Left Kidney -->
+  <ellipse cx="470" cy="230" rx="22" ry="14" class="organ-kidney"/>
+  <text x="500" y="228" text-anchor="middle" class="label">Kidney</text>
+  <!-- Right Kidney (slightly behind) -->
+  <ellipse cx="495" cy="245" rx="20" ry="12" class="organ-kidney" opacity="0.5"/>
+  <!-- Ureters -->
+  <path d="M470 245 Q440 280 420 310" fill="none" class="organ" stroke-width="2" opacity="0.5"/>
+  <path d="M495 258 Q460 290 430 315" fill="none" class="organ" stroke-width="2" opacity="0.5"/>
+  <!-- Bladder -->
+  <ellipse cx="400" cy="350" rx="25" ry="18" class="organ-bladder"/>
+  <text x="400" y="380" text-anchor="middle" class="label">Bladder</text>
+  <!-- Head labels -->
+  <text x="155" y="100" class="label">Brain</text>
+  <circle cx="145" cy="95" r="2" fill="#888"/>
+  <!-- Tail -->
+  <path d="M760 240 Q780 230 790 210 Q800 190 795 170 Q790 155 780 145" fill="none" stroke="#ccc" stroke-width="3"/>
+  <text x="785" y="180" class="label">Tail</text>
+  <!-- Ribcage indicator -->
+  <path d="M260 120 Q270 165 260 210" fill="none" stroke="#ccc" stroke-width="1" stroke-dasharray="4,3"/>
+  <path d="M470 120 Q480 165 470 215" fill="none" stroke="#ccc" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="365" y="120" text-anchor="middle" class="label">Ribcage</text>
+  <!-- Organ legend box -->
+  <rect x="20" y="420" width="160" height="70" rx="4" fill="white" opacity="0.8" stroke="#ccc" stroke-width="1"/>
+  <text x="30" y="438" class="label" font-weight="bold">Legend:</text>
+  <rect x="30" y="445" width="12" height="8" class="organ-heart"/>
+  <text x="48" y="454" class="label">Heart &amp; Blood vessels</text>
+  <rect x="30" y="458" width="12" height="8" class="organ-lung"/>
+  <text x="48" y="467" class="label">Respiratory (Lungs)</text>
+  <rect x="30" y="471" width="12" height="8" class="organ-liver"/>
+  <text x="48" y="480" class="label">Digestive organs</text>
+</svg>

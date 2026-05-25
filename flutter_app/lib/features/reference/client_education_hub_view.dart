@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_veterinarian/features/theme/app_theme.dart';
 import '../ui/glow_card.dart';
 import 'data/client_education.dart';
 
@@ -7,6 +8,7 @@ class ClientEducationHubView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     // In a real scenario, these would be fetched from Hive
     final diagrams = initialAnatomyDiagrams;
 
@@ -20,10 +22,10 @@ class ClientEducationHubView extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.only(bottom: 16),
             child: GlowCard(
-              glowColor: Colors.tealAccent,
+              glowColor: appColors.accentSecondary,
               child: ExpansionTile(
-                leading: const Icon(Icons.menu_book, color: Colors.tealAccent),
-                title: Text(item.title.toUpperCase(), style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                leading: Icon(Icons.menu_book, color: appColors.accentSecondary),
+                title: Text(item.title.toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold, color: appColors.accent)),
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(16.0),
@@ -35,25 +37,25 @@ class ClientEducationHubView extends StatelessWidget {
                           height: 200,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.05),
+                            color: appColors.card,
                             borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: Colors.white10),
+                            border: Border.all(color: appColors.accent.withAlpha(26)),
                           ),
                           child: Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Icon(Icons.image, color: Colors.grey, size: 48),
+                                Icon(Icons.image, color: appColors.textDim, size: 48),
                                 const SizedBox(height: 8),
-                                Text('[ ${item.svgPath} ]', style: const TextStyle(color: Colors.grey, fontSize: 10, fontFamily: 'monospace')),
+                                Text('[ ${item.svgPath} ]', style: TextStyle(color: appColors.textDim, fontSize: 10, fontFamily: 'monospace')),
                               ],
                             ),
                           ),
                         ),
                         const SizedBox(height: 16),
-                        const Text('EXPLANATION', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.tealAccent)),
+                        Text('EXPLANATION', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: appColors.accentSecondary)),
                         const SizedBox(height: 4),
-                        Text(item.explanation, style: const TextStyle(color: Colors.white70, height: 1.4)),
+                        Text(item.explanation, style: TextStyle(color: appColors.sectionHeader, height: 1.4)),
                       ],
                     ),
                   )

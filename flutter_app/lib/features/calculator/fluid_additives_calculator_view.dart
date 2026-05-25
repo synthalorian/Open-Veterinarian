@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../ui/glow_card.dart';
+import 'package:open_veterinarian/features/theme/app_theme.dart';
 
 class FluidAdditivesCalculatorView extends StatefulWidget {
   const FluidAdditivesCalculatorView({super.key});
@@ -15,6 +16,7 @@ class _FluidAdditivesCalculatorViewState extends State<FluidAdditivesCalculatorV
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     // Math: [Target (mEq/L) * Bag Volume (L)] / Stock Conc (mEq/ml) = Volume to add (ml)
     double volumeToAdd = (targetMeqPerL * (bagVolume / 1000)) / stockConcentration;
 
@@ -23,17 +25,17 @@ class _FluidAdditivesCalculatorViewState extends State<FluidAdditivesCalculatorV
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          _buildInputSection(),
+          _buildInputSection(appColors),
           const SizedBox(height: 24),
-          _buildResultSection(volumeToAdd),
+          _buildResultSection(volumeToAdd, appColors),
         ],
       ),
     );
   }
 
-  Widget _buildInputSection() {
+  Widget _buildInputSection(AppColors appColors) {
     return GlowCard(
-      glowColor: Colors.blueAccent,
+      glowColor: appColors.accent,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -59,14 +61,14 @@ class _FluidAdditivesCalculatorViewState extends State<FluidAdditivesCalculatorV
     );
   }
 
-  Widget _buildResultSection(double result) {
+  Widget _buildResultSection(double result, AppColors appColors) {
     return GlowCard(
-      glowColor: Colors.cyanAccent,
+      glowColor: appColors.accent,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            const Text('VOLUME TO ADD TO BAG', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.cyanAccent)),
+            Text('VOLUME TO ADD TO BAG', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: appColors.accent)),
             const SizedBox(height: 12),
             Text(
               '${result.toStringAsFixed(1)} ml',

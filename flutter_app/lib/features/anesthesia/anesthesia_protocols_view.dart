@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../services/database_service.dart';
+import '../theme/app_theme.dart';
 import '../ui/glow_card.dart';
 import 'anesthesia_protocols.dart';
 
@@ -8,6 +9,7 @@ class AnesthesiaProtocolsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     final protocols = DatabaseService.getProtocolsBox().values.toList();
 
     return Scaffold(
@@ -19,27 +21,27 @@ class AnesthesiaProtocolsView extends StatelessWidget {
         itemCount: protocols.length,
         itemBuilder: (context, index) {
           final protocol = protocols[index];
-          return _buildProtocolCard(protocol);
+          return _buildProtocolCard(protocol, appColors);
         },
       ),
     );
   }
 
-  Widget _buildProtocolCard(AnesthesiaProtocol protocol) {
+  Widget _buildProtocolCard(AnesthesiaProtocol protocol, AppColors appColors) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: GlowCard(
-        glowColor: Colors.purpleAccent,
+        glowColor: appColors.accent,
         child: ExpansionTile(
-          iconColor: Colors.purpleAccent,
-          collapsedIconColor: Colors.grey,
+          iconColor: appColors.accent,
+          collapsedIconColor: appColors.textDim,
           title: Text(
             protocol.name.toUpperCase(),
-            style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white, letterSpacing: 1.2),
+            style: TextStyle(fontWeight: FontWeight.bold, color: appColors.accent.withAlpha(204), letterSpacing: 1.2),
           ),
           subtitle: Text(
             protocol.indications,
-            style: const TextStyle(fontSize: 12, color: Colors.grey, fontStyle: FontStyle.italic),
+            style: TextStyle(fontSize: 12, color: appColors.textDim, fontStyle: FontStyle.italic),
           ),
           children: [
             Padding(
@@ -49,12 +51,12 @@ class AnesthesiaProtocolsView extends StatelessWidget {
                 children: [
                   Text(
                     protocol.description,
-                    style: const TextStyle(fontSize: 14, color: Colors.white70, height: 1.4),
+                    style: TextStyle(fontSize: 14, color: appColors.sectionHeader, height: 1.4),
                   ),
                   const SizedBox(height: 16),
-                  const Divider(color: Colors.purpleAccent, thickness: 0.5),
+                  Divider(color: appColors.accent, thickness: 0.5),
                   const SizedBox(height: 8),
-                  ...protocol.drugs.entries.map((e) => _buildDrugRow(e.key, e.value)),
+                  ...protocol.drugs.entries.map((e) => _buildDrugRow(e.key, e.value, appColors)),
                 ],
               ),
             ),
@@ -64,7 +66,7 @@ class AnesthesiaProtocolsView extends StatelessWidget {
     );
   }
 
-  Widget _buildDrugRow(String phase, String details) {
+  Widget _buildDrugRow(String phase, String details, AppColors appColors) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6.0),
       child: Row(
@@ -74,14 +76,14 @@ class AnesthesiaProtocolsView extends StatelessWidget {
             width: 90,
             child: Text(
               phase.toUpperCase(),
-              style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.purpleAccent, letterSpacing: 1.0),
+              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: appColors.accent, letterSpacing: 1.0),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
             child: Text(
               details,
-              style: const TextStyle(fontSize: 13, color: Colors.white, height: 1.3),
+              style: TextStyle(fontSize: 13, color: appColors.accent.withAlpha(204), height: 1.3),
             ),
           ),
         ],

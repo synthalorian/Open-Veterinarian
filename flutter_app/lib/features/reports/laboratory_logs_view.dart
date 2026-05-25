@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../../services/database_service.dart';
+import '../theme/app_theme.dart';
 import '../ui/glow_card.dart';
 import 'patient_lab_log.dart';
 
@@ -9,12 +10,13 @@ class LaboratoryLogsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     return Scaffold(
       appBar: AppBar(
         title: const Text('LABORATORY LOGS'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.add_chart, color: Colors.cyanAccent),
+            icon: Icon(Icons.add_chart, color: appColors.accent),
             onPressed: () => _showAddLogDialog(context),
           ),
         ],
@@ -25,8 +27,8 @@ class LaboratoryLogsView extends StatelessWidget {
           final logs = box.values.toList().reversed.toList();
           
           if (logs.isEmpty) {
-            return const Center(
-              child: Text('No patient lab logs yet.', style: TextStyle(color: Colors.grey)),
+            return Center(
+              child: Text('No patient lab logs yet.', style: TextStyle(color: appColors.textDim)),
             );
           }
 
@@ -38,11 +40,11 @@ class LaboratoryLogsView extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 12),
                 child: GlowCard(
-                  glowColor: Colors.blueAccent,
+                  glowColor: appColors.accent,
                   child: ListTile(
-                    title: Text(log.patientName.toUpperCase(), style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-                    subtitle: Text('${log.date.day}/${log.date.month}/${log.date.year}', style: const TextStyle(fontSize: 12, color: Colors.grey)),
-                    trailing: const Icon(Icons.chevron_right, color: Colors.blueAccent),
+                    title: Text(log.patientName.toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold, color: appColors.accent.withAlpha(204))),
+                    subtitle: Text('${log.date.day}/${log.date.month}/${log.date.year}', style: TextStyle(fontSize: 12, color: appColors.textDim)),
+                    trailing: Icon(Icons.chevron_right, color: appColors.accent),
                     onTap: () => _showLogDetail(context, log),
                   ),
                 ),
@@ -55,6 +57,7 @@ class LaboratoryLogsView extends StatelessWidget {
   }
 
   void _showAddLogDialog(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     final nameController = TextEditingController();
     final creaController = TextEditingController();
     final bunController = TextEditingController();
@@ -62,8 +65,8 @@ class LaboratoryLogsView extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: Colors.black,
-        title: const Text('NEW PATIENT LAB LOG', style: TextStyle(color: Colors.cyanAccent, fontSize: 16)),
+        backgroundColor: appColors.surface,
+        title: Text('NEW PATIENT LAB LOG', style: TextStyle(color: appColors.accent, fontSize: 16)),
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -97,11 +100,12 @@ class LaboratoryLogsView extends StatelessWidget {
   }
 
   void _showLogDetail(BuildContext context, PatientLabLog log) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: Colors.black,
-        title: Text(log.patientName.toUpperCase(), style: const TextStyle(color: Colors.cyanAccent)),
+        backgroundColor: appColors.surface,
+        title: Text(log.patientName.toUpperCase(), style: TextStyle(color: appColors.accent)),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: log.results.entries.map((e) => ListTile(

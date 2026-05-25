@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:flutter_tts/flutter_tts.dart';
+import '../theme/app_theme.dart';
 import '../ui/glow_card.dart';
 
 class SurgicalNoteTakerView extends StatefulWidget {
@@ -45,6 +46,7 @@ class _SurgicalNoteTakerViewState extends State<SurgicalNoteTakerView> {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     return Scaffold(
       appBar: AppBar(title: const Text('SURGICAL NOTE TAKER')),
       body: Padding(
@@ -53,7 +55,7 @@ class _SurgicalNoteTakerViewState extends State<SurgicalNoteTakerView> {
           children: [
             Expanded(
               child: GlowCard(
-                glowColor: Colors.purpleAccent,
+                glowColor: appColors.accent,
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: TextField(
@@ -76,19 +78,19 @@ class _SurgicalNoteTakerViewState extends State<SurgicalNoteTakerView> {
                 _buildActionCircle(
                   icon: _isListening ? Icons.mic : Icons.mic_none,
                   label: 'DICTATE',
-                  color: _isListening ? Colors.redAccent : Colors.cyanAccent,
+                  color: _isListening ? appColors.danger : appColors.accent,
                   onTap: _listen,
                 ),
                 _buildActionCircle(
                   icon: Icons.volume_up,
                   label: 'PLAYBACK',
-                  color: Colors.purpleAccent,
+                  color: appColors.accentTertiary,
                   onTap: _speak,
                 ),
                 _buildActionCircle(
                   icon: Icons.save,
                   label: 'SAVE',
-                  color: Colors.greenAccent,
+                  color: appColors.success,
                   onTap: () {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Note saved to Grid.')));
                   },

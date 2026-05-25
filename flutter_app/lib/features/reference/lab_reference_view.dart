@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_veterinarian/features/theme/app_theme.dart';
 import '../reference/data/lab_reference.dart';
 import 'lab_detail_view.dart';
 
@@ -14,6 +15,7 @@ class _LabReferenceViewState extends State<LabReferenceView> {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     // Group tests by category
     final Map<String, List<LabTest>> categorizedTests = {};
     for (var test in initialLabData) {
@@ -29,7 +31,7 @@ class _LabReferenceViewState extends State<LabReferenceView> {
             child: DropdownButton<String>(
               value: selectedSpecies,
               underline: const SizedBox(),
-              icon: const Icon(Icons.pets, color: Colors.cyanAccent),
+              icon: Icon(Icons.pets, color: appColors.accent),
               items: const [
                 DropdownMenuItem(value: 'canine', child: Text('Canine')),
                 DropdownMenuItem(value: 'feline', child: Text('Feline')),
@@ -51,15 +53,15 @@ class _LabReferenceViewState extends State<LabReferenceView> {
                 padding: const EdgeInsets.symmetric(vertical: 12.0),
                 child: Text(
                   entry.key.toUpperCase(),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 1.2,
-                    color: Colors.cyanAccent,
+                    color: appColors.accent,
                   ),
                 ),
               ),
-              ...entry.value.map((test) => _buildLabCard(test)),
+              ...entry.value.map((test) => _buildLabCard(test, appColors)),
               const SizedBox(height: 8),
             ],
           );
@@ -68,7 +70,7 @@ class _LabReferenceViewState extends State<LabReferenceView> {
     );
   }
 
-  Widget _buildLabCard(LabTest test) {
+  Widget _buildLabCard(LabTest test, AppColors appColors) {
     return Card(
       margin: const EdgeInsets.only(bottom: 8.0),
       child: ListTile(
@@ -77,10 +79,10 @@ class _LabReferenceViewState extends State<LabReferenceView> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(test.name, style: const TextStyle(fontWeight: FontWeight.bold)),
-            Text(test.abbreviation, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+            Text(test.abbreviation, style: TextStyle(fontSize: 12, color: appColors.textDim)),
           ],
         ),
-        trailing: const Icon(Icons.chevron_right, color: Colors.grey),
+        trailing: Icon(Icons.chevron_right, color: appColors.textDim),
       ),
     );
   }

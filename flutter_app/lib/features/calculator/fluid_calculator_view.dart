@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/fluid_provider.dart';
+import 'package:open_veterinarian/features/theme/app_theme.dart';
 
 class FluidCalculatorView extends ConsumerWidget {
   const FluidCalculatorView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     final state = ref.watch(fluidCalculatorNotifierProvider);
     final notifier = ref.read(fluidCalculatorNotifierProvider.notifier);
 
@@ -18,34 +20,34 @@ class FluidCalculatorView extends ConsumerWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            _buildInputCard(context, notifier, state),
+            _buildInputCard(context, notifier, state, appColors),
             const SizedBox(height: 20),
-            if (state.result != null) _buildResultCard(context, state),
+            if (state.result != null) _buildResultCard(context, state, appColors),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildInputCard(BuildContext context, FluidCalculatorNotifier notifier, FluidState state) {
+  Widget _buildInputCard(BuildContext context, FluidCalculatorNotifier notifier, FluidState state, AppColors appColors) {
     return Card(
-      color: Colors.white.withValues(alpha: 0.05),
+      color: appColors.card,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: Colors.cyan.withValues(alpha: 0.2)),
+        side: BorderSide(color: appColors.accent.withAlpha(51)),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Patient Parameters', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.cyanAccent)),
+            Text('Patient Parameters', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: appColors.accent)),
             const SizedBox(height: 16),
             Row(
               children: [
-                _buildSpeciesChip(notifier, state, 'Canine'),
+                _buildSpeciesChip(notifier, state, 'Canine', appColors),
                 const SizedBox(width: 12),
-                _buildSpeciesChip(notifier, state, 'Feline'),
+                _buildSpeciesChip(notifier, state, 'Feline', appColors),
               ],
             ),
             const SizedBox(height: 16),
@@ -97,7 +99,7 @@ class FluidCalculatorView extends ConsumerWidget {
               max: 80,
               divisions: 8,
               label: state.maintenanceConstant.round().toString(),
-              activeColor: Colors.cyanAccent,
+              activeColor: appColors.accent,
               onChanged: (val) => notifier.updateMaintenanceConstant(val),
             ),
           ],
@@ -106,43 +108,43 @@ class FluidCalculatorView extends ConsumerWidget {
     );
   }
 
-  Widget _buildSpeciesChip(FluidCalculatorNotifier notifier, FluidState state, String species) {
+  Widget _buildSpeciesChip(FluidCalculatorNotifier notifier, FluidState state, String species, AppColors appColors) {
     final isSelected = state.selectedSpecies == species;
     return ChoiceChip(
       label: Text(species),
       selected: isSelected,
       onSelected: (val) => (val) ? notifier.selectSpecies(species) : null,
-      selectedColor: Colors.cyanAccent,
-      labelStyle: TextStyle(color: isSelected ? Colors.black : Colors.cyanAccent),
+      selectedColor: appColors.accent,
+      labelStyle: TextStyle(color: isSelected ? appColors.surface : appColors.accent),
     );
   }
 
-  Widget _buildResultCard(BuildContext context, FluidState state) {
+  Widget _buildResultCard(BuildContext context, FluidState state, AppColors appColors) {
     final res = state.result!;
     return Card(
-      color: Colors.cyan.withValues(alpha: 0.1),
+      color: appColors.card,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: const BorderSide(color: Colors.cyan),
+        side: BorderSide(color: appColors.accentSecondary),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            const Text('Calculation Results', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.cyanAccent)),
-            const Divider(color: Colors.cyan),
-            _buildResultRow('Maintenance Rate', '${res.maintenanceRate.toStringAsFixed(1)} ml/day'),
-            _buildResultRow('Replacement Deficit', '${res.replacementDeficit.toStringAsFixed(1)} ml'),
-            _buildResultRow('Ongoing Losses', '${res.ongoingLosses.toStringAsFixed(1)} ml/day'),
-            const Divider(color: Colors.cyan),
+            Text('Calculation Results', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: appColors.accent)),
+            Divider(color: appColors.accentSecondary),
+            _buildResultRow('Maintenance Rate', '${res.maintenanceRate.toStringAsFixed(1)} ml/day', appColors),
+            _buildResultRow('Replacement Deficit', '${res.replacementDeficit.toStringAsFixed(1)} ml', appColors),
+            _buildResultRow('Ongoing Losses', '${res.ongoingLosses.toStringAsFixed(1)} ml/day', appColors),
+            Divider(color: appColors.accentSecondary),
             Text(
               'TOTAL RATE: ${res.toString()}',
-              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: appColors.accent),
             ),
             const SizedBox(height: 8),
-            const Text(
+            Text(
               '(Maintenance + Deficit + Ongoing Losses)',
-              style: TextStyle(fontSize: 10, color: Colors.grey),
+              style: TextStyle(fontSize: 10, color: appColors.textDim),
             ),
           ],
         ),
@@ -150,14 +152,14 @@ class FluidCalculatorView extends ConsumerWidget {
     );
   }
 
-  Widget _buildResultRow(String label, String value) {
+  Widget _buildResultRow(String label, String value, AppColors appColors) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(label, style: const TextStyle(fontWeight: FontWeight.w500)),
-          Text(value, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontFamily: 'monospace')),
+          Text(value, style: TextStyle(fontWeight: FontWeight.bold, color: appColors.accent, fontFamily: 'monospace')),
         ],
       ),
     );

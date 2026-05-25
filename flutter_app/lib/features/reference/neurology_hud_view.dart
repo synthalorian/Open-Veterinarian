@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_veterinarian/features/theme/app_theme.dart';
 import '../ui/glow_card.dart';
 
 class NeurologyHudView extends StatelessWidget {
@@ -6,6 +7,7 @@ class NeurologyHudView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     return Scaffold(
       appBar: AppBar(title: const Text('NEUROLOGY HUD')),
       body: ListView(
@@ -18,14 +20,14 @@ class NeurologyHudView extends StatelessWidget {
             'CN V (Trigeminal): Jaw tone, palpebral',
             'CN VII (Facial): Ear movement, lip tone',
             'CN VIII (Vestibulocochlear): Balance, nystagmus',
-          ], Colors.purpleAccent),
+          ], appColors.accent),
           const SizedBox(height: 20),
           _buildChecklistSection('SPINAL REFLEXES', [
             'Patellar Reflex (Femoral N.): L4-L6',
             'Withdrawal Reflex (Sciatic N.): L6-S2',
             'Cutaneous Trunci Reflex: T2-L3',
             'Perineal Reflex (Pudendal N.): S1-S3',
-          ], Colors.blueAccent),
+          ], appColors.accentSecondary),
         ],
       ),
     );
@@ -40,7 +42,7 @@ class NeurologyHudView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(title, style: TextStyle(fontWeight: FontWeight.bold, color: color, letterSpacing: 1.5)),
-            const Divider(color: Colors.white10),
+            Divider(color: color.withAlpha(26)),
             ...items.map((item) => CheckboxListTile(
               title: Text(item, style: const TextStyle(fontSize: 13)),
               value: false,

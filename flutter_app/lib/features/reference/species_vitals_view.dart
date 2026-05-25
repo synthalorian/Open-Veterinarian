@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_veterinarian/features/theme/app_theme.dart';
 import 'data/species_vitals.dart';
 import '../ui/species_icons.dart';
 import 'species_detail_view.dart';
@@ -8,6 +9,7 @@ class SpeciesVitalsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Species Vitals Reference'),
@@ -23,8 +25,8 @@ class SpeciesVitalsView extends StatelessWidget {
               onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => SpeciesDetailView(species: species))),
               leading: SpeciesIcon(species: species.name, size: 28),
               title: Text(species.name, style: const TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: Text(species.scientificName, style: const TextStyle(fontSize: 12, fontStyle: FontStyle.italic, color: Colors.grey)),
-              trailing: const Icon(Icons.chevron_right, color: Colors.grey),
+              subtitle: Text(species.scientificName, style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic, color: appColors.textDim)),
+              trailing: Icon(Icons.chevron_right, color: appColors.textDim),
             ),
           );
         },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/search_provider.dart';
+import '../../features/theme/app_theme.dart';
 
 class GlobalSearchDelegate extends SearchDelegate<SearchResult?> {
   final WidgetRef ref;
@@ -35,7 +36,7 @@ class GlobalSearchDelegate extends SearchDelegate<SearchResult?> {
       return const Center(child: Text('No results found.'));
     }
 
-    return _buildResultsList(results);
+    return _buildResultsList(context, results);
   }
 
   @override
@@ -43,10 +44,11 @@ class GlobalSearchDelegate extends SearchDelegate<SearchResult?> {
     ref.read(globalSearchProvider.notifier).search(query);
     final results = ref.watch(globalSearchProvider);
 
-    return _buildResultsList(results);
+    return _buildResultsList(context, results);
   }
 
-  Widget _buildResultsList(List<SearchResult> results) {
+  Widget _buildResultsList(BuildContext context, List<SearchResult> results) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     return ListView.builder(
       itemCount: results.length,
       itemBuilder: (context, index) {
@@ -66,11 +68,10 @@ class GlobalSearchDelegate extends SearchDelegate<SearchResult?> {
         }
 
         return ListTile(
-          leading: Icon(icon, color: Colors.cyanAccent),
-          title: Text(result.title),
-          subtitle: Text(result.subtitle),
+          leading: Icon(icon, color: appColors.accent),
+          title: Text(result.title, style: TextStyle(color: appColors.accent.withAlpha(204))),
+          subtitle: Text(result.subtitle, style: TextStyle(color: appColors.textDim)),
           onTap: () {
-            // Future: Navigate to detail view
             close(context, result);
           },
         );

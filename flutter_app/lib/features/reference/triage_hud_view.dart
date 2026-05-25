@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_veterinarian/features/theme/app_theme.dart';
 import '../../services/database_service.dart';
 import '../ui/glow_card.dart';
 
@@ -7,6 +8,7 @@ class TriageHudView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
     final triageCriteria = DatabaseService.getTriageBox().values.toList();
 
     return Scaffold(
@@ -16,7 +18,7 @@ class TriageHudView extends StatelessWidget {
         itemCount: triageCriteria.length,
         itemBuilder: (context, index) {
           final item = triageCriteria[index];
-          Color urgencyColor = item.urgency == 'Critical' ? Colors.redAccent : Colors.orangeAccent;
+          Color urgencyColor = item.urgency == 'Critical' ? appColors.danger : appColors.warning;
           
           return Padding(
             padding: const EdgeInsets.only(bottom: 16),
@@ -24,7 +26,7 @@ class TriageHudView extends StatelessWidget {
               glowColor: urgencyColor,
               child: ExpansionTile(
                 leading: Text(item.category.split(' ').first, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: urgencyColor)),
-                title: Text(item.category.toUpperCase(), style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                title: Text(item.category.toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold, color: appColors.accent)),
                 subtitle: Text(item.urgency, style: TextStyle(fontSize: 12, color: urgencyColor, fontWeight: FontWeight.bold)),
                 children: [
                   Padding(
@@ -32,13 +34,13 @@ class TriageHudView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(item.description, style: const TextStyle(color: Colors.white70)),
+                        Text(item.description, style: TextStyle(color: appColors.sectionHeader)),
                         const SizedBox(height: 12),
-                        const Text('INDICATORS', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.grey)),
+                        Text('INDICATORS', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: appColors.textDim)),
                         const SizedBox(height: 4),
                         ...item.indicators.map((i) => Padding(
                           padding: const EdgeInsets.only(bottom: 4),
-                          child: Row(children: [const Icon(Icons.warning_amber, size: 14, color: Colors.orangeAccent), const SizedBox(width: 8), Expanded(child: Text(i, style: const TextStyle(fontSize: 13)))]),
+                          child: Row(children: [Icon(Icons.warning_amber, size: 14, color: appColors.warning), const SizedBox(width: 8), Expanded(child: Text(i, style: const TextStyle(fontSize: 13)))]),
                         )),
                       ],
                     ),

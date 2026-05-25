@@ -8,7 +8,11 @@ part 'auth_provider.g.dart';
 class AuthNotifier extends _$AuthNotifier {
   @override
   User? build() {
-    return SyncService.client.auth.currentUser;
+    try {
+      return SyncService.client.auth.currentUser;
+    } catch (_) {
+      return null;
+    }
   }
 
   Future<void> signIn(String email, String password) async {

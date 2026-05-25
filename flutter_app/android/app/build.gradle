@@ -24,7 +24,8 @@ if (flutterVersionName == null) {
 
 android {
     namespace = "ai.openclaw.open_veterinarian"
-    compileSdk = 34
+    compileSdk = 36
+    ndkVersion = "28.2.13676358"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -38,7 +39,7 @@ android {
     defaultConfig {
         applicationId = "ai.openclaw.open_veterinarian"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 36
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
     }

@@ -68,7 +68,7 @@ class _MainDashboardState extends ConsumerState<MainDashboard> {
         children: [
           _buildBackground(appColors),
           ListView(
-            padding: const EdgeInsets.fromLTRB(16, 120, 16, 40),
+            padding: EdgeInsets.fromLTRB(16, MediaQuery.of(context).padding.top + kToolbarHeight + 16, 16, 40),
             children: _buildDashboardItems(context, appColors),
           ),
         ],

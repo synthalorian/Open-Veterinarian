@@ -2,8 +2,8 @@
 
 _The ultimate open-source assistance app for Veterinarians._
 
-## 🎹🦞 Vision
-Open Veterinarian is designed to be the definitive digital toolkit for veterinary professionals. Built with the same precision as a synthwave bassline and the reliability of a cybernetic lobster, this app bridges the gap between complex medical data and rapid, on-the-go clinical decision making.
+## 🎹🦈 Vision
+Open Veterinarian is designed to be the definitive digital toolkit for veterinary professionals. Built with the same precision as a synthwave bassline and the reliability of a cybernetic shark, this app bridges the gap between complex medical data and rapid, on-the-go clinical decision making.
 
 ## Core Features (Finalized Roadmap v1.7)
 - **Responsive Clinical HUD:** Optimized for Mobile and Tablet (Split-screen multi-tool layout).
@@ -43,11 +43,11 @@ Open Veterinarian is designed to be the definitive digital toolkit for veterinar
 - [x] Laboratory Logs & Client PDF Reports
 - [x] Data Persistence & Cloud Sync (Supabase)
 
-## Support & Open Source 🎹🦞
+## Support & Open Source 🎹🦈
 Open Veterinarian is **100% Open Source** and free for the veterinary community. If you find this toolkit useful and want to support its ongoing development, clinical research, and server costs, you can buy synth a coffee:
 
 **[☕ Support on Buy Me a Coffee](https://www.buymeacoffee.com/synthalorian)**
 
 ---
-*Developed by synth & synthclaw.*
+*Developed by synth & synthshark.*
 **This is the wave.** 🌊

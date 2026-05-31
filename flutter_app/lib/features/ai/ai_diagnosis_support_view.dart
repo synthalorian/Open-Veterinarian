@@ -26,7 +26,7 @@ class _AiDiagnosisSupportViewState extends ConsumerState<AiDiagnosisSupportView>
         child: Column(
           children: [
             Text(
-              'Enter clinical signs or lab results for synthclaw synthesis.',
+              'Enter clinical signs or lab results for synthshark synthesis.',
               style: TextStyle(color: appColors.textDim, fontSize: 12),
             ),
             const SizedBox(height: 16),
@@ -82,7 +82,7 @@ class _AiDiagnosisSupportViewState extends ConsumerState<AiDiagnosisSupportView>
     await Future.delayed(const Duration(seconds: 2));
 
     final query = _queryController.text.toLowerCase();
-    String result = '🎹🦞 SYNTHESIS COMPLETE:\n\n';
+    String result = '🎹🦈 SYNTHESIS COMPLETE:\n\n';
 
     if (query.contains('pu/pd') || query.contains('crea')) {
       result += 'Potential differential: Chronic Kidney Disease (CKD).\nRecommended Actions:\n- Verify Blood Pressure\n- Perform full Urinalysis (USG/UPC)\n- Check SDMA levels.';

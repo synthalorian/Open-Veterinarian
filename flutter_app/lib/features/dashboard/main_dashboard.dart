@@ -216,7 +216,7 @@ class _MainDashboardState extends ConsumerState<MainDashboard> {
         const SizedBox(height: 40),
         Center(
           child: Text(
-            '🎹🦞 VERSION 1.7.0 "NEON-SURGEON"',
+            '🎹🦈 VERSION 1.7.0 "NEON-SURGEON"',
             style: TextStyle(fontSize: 10, color: appColors.textDim, letterSpacing: 2, fontFamily: 'monospace'),
           ),
         ),

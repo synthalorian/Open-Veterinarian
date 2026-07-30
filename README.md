@@ -1,5 +1,9 @@
 # Open Veterinarian 🐾
 
+![License](https://img.shields.io/badge/License-GPLv3-blue)
+![Language](https://img.shields.io/badge/Language-Dart-blue)
+![Platform](https://img.shields.io/badge/Platform-iOS_/_Android-blue)
+
 _The ultimate open-source assistance app for Veterinarians._
 
 ## 🎹🦈 Vision
@@ -42,6 +46,13 @@ Open Veterinarian is designed to be the definitive digital toolkit for veterinar
 - [x] Surgical Note Taker (Dictation & TTS)
 - [x] Laboratory Logs & Client PDF Reports
 - [x] Data Persistence & Cloud Sync (Supabase)
+
+## Getting Started
+
+```bash
+flutter pub get
+flutter run -d linux
+```
 
 ## Support & Open Source 🎹🦈
 Open Veterinarian is **100% Open Source** and free for the veterinary community. If you find this toolkit useful and want to support its ongoing development, clinical research, and server costs, you can buy synth a coffee:

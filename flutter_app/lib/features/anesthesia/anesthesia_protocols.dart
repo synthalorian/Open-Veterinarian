@@ -27,7 +27,7 @@ final List<AnesthesiaProtocol> initialProtocolData = [
   AnesthesiaProtocol(
     name: 'Standard Healthy (ASA I-II)',
     description: 'Balanced protocol for healthy young patients undergoing routine procedures.',
-    drugs: {
+    drugs: const {
       'Pre-med': 'Dexmedetomidine (5-10 mcg/kg) + Butorphanol (0.2 mg/kg) IM',
       'Induction': 'Propofol (4 mg/kg) or Alfaxalone (2 mg/kg) IV to effect',
       'Maintenance': 'Isoflurane or Sevoflurane in Oxygen',
@@ -38,7 +38,7 @@ final List<AnesthesiaProtocol> initialProtocolData = [
   AnesthesiaProtocol(
     name: 'Geriatric / Cardiac',
     description: 'Opioid-based protocol to minimize cardiovascular depression.',
-    drugs: {
+    drugs: const {
       'Pre-med': 'Midazolam (0.2 mg/kg) + Methadone (0.2 mg/kg) IM/IV',
       'Induction': 'Etomidate (0.5-2 mg/kg) or Alfaxalone IV slowly',
       'Maintenance': 'Isoflurane (low concentration) + Fentanyl CRI',
@@ -49,7 +49,7 @@ final List<AnesthesiaProtocol> initialProtocolData = [
   AnesthesiaProtocol(
     name: 'Brachycephalic',
     description: 'Focus on rapid intubation and airway control.',
-    drugs: {
+    drugs: const {
       'Pre-med': 'Acepromazine (low dose) + Butorphanol',
       'Anti-emetic': 'Maropitant (1 mg/kg) IV/SC 1hr prior',
       'Induction': 'Propofol IV to effect (rapid control)',

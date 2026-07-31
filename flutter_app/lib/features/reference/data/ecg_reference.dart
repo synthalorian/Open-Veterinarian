@@ -27,13 +27,13 @@ final List<EcgPattern> initialEcgData = [
   EcgPattern(
     rhythmName: 'Sinus Tachycardia',
     description: 'Normal sinus rhythm with a faster than normal rate.',
-    characteristics: ['P-wave for every QRS', 'Regular R-R intervals', 'HR > 160 (dog), > 240 (cat)'],
+    characteristics: const ['P-wave for every QRS', 'Regular R-R intervals', 'HR > 160 (dog), > 240 (cat)'],
     treatment: 'Identify underlying cause (Pain, stress, fever, hypovolemia).',
   ),
   EcgPattern(
     rhythmName: 'Ventricular Premature Complexes (VPC)',
     description: 'Ectopic beats originating from the ventricles.',
-    characteristics: ['No P-wave before VPC', 'Wide and bizarre QRS', 'T-wave often opposite to QRS'],
+    characteristics: const ['No P-wave before VPC', 'Wide and bizarre QRS', 'T-wave often opposite to QRS'],
     treatment: 'Lidocaine if frequent (>20/min) or R-on-T phenomenon.',
   ),
 ];

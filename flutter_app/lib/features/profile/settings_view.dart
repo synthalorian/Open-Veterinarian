@@ -169,7 +169,7 @@ class SettingsView extends ConsumerWidget {
                 decoration: InputDecoration(
                   labelText: 'Email',
                   labelStyle: TextStyle(color: appColors.textDim),
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: appColors.accent.withAlpha(25))),
                 ),
               ),
@@ -181,7 +181,7 @@ class SettingsView extends ConsumerWidget {
                 decoration: InputDecoration(
                   labelText: 'Password',
                   labelStyle: TextStyle(color: appColors.textDim),
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: appColors.accent.withAlpha(25))),
                 ),
               ),

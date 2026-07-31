@@ -281,12 +281,12 @@ class _MainDashboardState extends ConsumerState<MainDashboard> {
               decoration: InputDecoration(
                 labelText: 'Pet Name',
                 labelStyle: TextStyle(color: appColors.textDim),
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: appColors.accent.withAlpha(25))),
               ),
             ),
             DropdownButtonFormField<String>(
-              value: species,
+              initialValue: species,
               dropdownColor: appColors.card,
               style: TextStyle(color: appColors.accent),
               items: const [
@@ -297,7 +297,7 @@ class _MainDashboardState extends ConsumerState<MainDashboard> {
               decoration: InputDecoration(
                 labelText: 'Species',
                 labelStyle: TextStyle(color: appColors.textDim),
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: appColors.accent.withAlpha(25))),
               ),
             ),
@@ -307,7 +307,7 @@ class _MainDashboardState extends ConsumerState<MainDashboard> {
               decoration: InputDecoration(
                 labelText: 'Reason for Visit',
                 labelStyle: TextStyle(color: appColors.textDim),
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: appColors.accent.withAlpha(25))),
               ),
             ),

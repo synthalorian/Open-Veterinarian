@@ -28,12 +28,12 @@ final List<AnatomyReference> initialAnatomyData = [
     partName: 'Cervical Vertebrae',
     system: 'Skeletal',
     description: 'Seven vertebrae (C1-C7) in the neck. C1 is the Atlas, C2 is the Axis.',
-    clinicalSignificance: ['IVDD (Intervertebral Disc Disease)', 'Wobbler Syndrome', 'Atlantoaxial Subluxation'],
+    clinicalSignificance: const ['IVDD (Intervertebral Disc Disease)', 'Wobbler Syndrome', 'Atlantoaxial Subluxation'],
   ),
   AnatomyReference(
     partName: 'Cranial Cruciate Ligament (CCL)',
     system: 'Stifle / Joint',
     description: 'Connects the femur to the tibia, preventing cranial displacement of the tibia.',
-    clinicalSignificance: ['CCL Rupture (Drawer sign)', 'Osteoarthritis', 'Tibial Plateau Leveling Osteotomy (TPLO)'],
+    clinicalSignificance: const ['CCL Rupture (Drawer sign)', 'Osteoarthritis', 'Tibial Plateau Leveling Osteotomy (TPLO)'],
   ),
 ];

@@ -95,7 +95,7 @@ class DoseCalculatorView extends ConsumerWidget {
                 prefixIcon: Icon(Icons.medication),
               ),
               hint: const Text('Search Drug Formulary'),
-              value: state.selectedDrug,
+              initialValue: state.selectedDrug,
               items: drugs.map((drug) {
                 return DropdownMenuItem(
                   value: drug,

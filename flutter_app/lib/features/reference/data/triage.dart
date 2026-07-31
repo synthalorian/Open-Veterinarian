@@ -27,31 +27,31 @@ final List<TriageCriteria> initialTriageData = [
   TriageCriteria(
     category: 'A - Airway',
     description: 'Assess patency of the upper airway.',
-    indicators: ['Stridor', 'Stertor', 'Choking', 'Foreign body'],
+    indicators: const ['Stridor', 'Stertor', 'Choking', 'Foreign body'],
     urgency: 'Critical',
   ),
   TriageCriteria(
     category: 'B - Breathing',
     description: 'Assess respiratory effort and character.',
-    indicators: ['Dyspnea', 'Cyanosis', 'Open-mouth breathing (cats)', 'Tachypnea'],
+    indicators: const ['Dyspnea', 'Cyanosis', 'Open-mouth breathing (cats)', 'Tachypnea'],
     urgency: 'Critical',
   ),
   TriageCriteria(
     category: 'C - Circulation',
     description: 'Assess perfusion and cardiovascular status.',
-    indicators: ['Pale/Grey MM', 'CRT > 2s', 'Weak pulses', 'Tachycardia/Bradycardia'],
+    indicators: const ['Pale/Grey MM', 'CRT > 2s', 'Weak pulses', 'Tachycardia/Bradycardia'],
     urgency: 'Critical',
   ),
   TriageCriteria(
     category: 'D - Disability',
     description: 'Assess neurological status.',
-    indicators: ['Seizures', 'Altered mentation', 'Paresis/Paralysis', 'Anisocoria'],
+    indicators: const ['Seizures', 'Altered mentation', 'Paresis/Paralysis', 'Anisocoria'],
     urgency: 'Urgent',
   ),
   TriageCriteria(
     category: 'E - External / Everything Else',
     description: 'Complete physical scan and other issues.',
-    indicators: ['Hemorrhage', 'Fractures', 'Toxins', 'Abdominal pain'],
+    indicators: const ['Hemorrhage', 'Fractures', 'Toxins', 'Abdominal pain'],
     urgency: 'Urgent/Stable',
   ),
 ];

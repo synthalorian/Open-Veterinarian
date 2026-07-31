@@ -31,7 +31,7 @@ final List<ImagingReference> initialImagingData = [
     title: 'Thoracic - Lat & VD',
     category: 'X-Ray',
     positioning: 'Right Lateral and Ventrodorsal (VD).',
-    checklist: [
+    checklist: const [
       'Collimate from thoracic inlet to last rib.',
       'Peak inspiration for VD view.',
       'Front legs pulled cranially.',
@@ -42,7 +42,7 @@ final List<ImagingReference> initialImagingData = [
     title: 'Abdominal - Lat & VD',
     category: 'X-Ray',
     positioning: 'Right Lateral and Ventrodorsal.',
-    checklist: [
+    checklist: const [
       'Collimate from T9 to greater trochanter.',
       'Peak expiration.',
       'Hind legs pulled caudally.',
@@ -53,7 +53,7 @@ final List<ImagingReference> initialImagingData = [
     title: 'AFAST / TFAST',
     category: 'Ultrasound',
     positioning: 'Lateral or Sternal recumbency.',
-    checklist: [
+    checklist: const [
       'Diaphragmatico-hepatic (DH) view.',
       'Spleno-renal (SR) view.',
       'Cysto-colic (CC) view.',

@@ -55,10 +55,10 @@ flutter run -d linux
 ```
 
 ## Support & Open Source 🎹🦞
-Open Veterinarian is **100% Open Source** and free for the veterinary community. If you find this toolkit useful and want to support its ongoing development, clinical research, and server costs, you can buy synth a coffee:
+Open Veterinarian is **100% Open Source** and free for the veterinary community. If you find this toolkit useful and want to support its ongoing development, clinical research, and server costs, you can buy synthalorian 🎹🤺 a coffee:
 
 **[☕ Support on Buy Me a Coffee](https://www.buymeacoffee.com/synthalorian)**
 
 ---
-*Developed by synth & synthclaw.*
+*Developed by synthalorian 🎹🤺 & synthclaw.*
 **This is the wave.** 🌊

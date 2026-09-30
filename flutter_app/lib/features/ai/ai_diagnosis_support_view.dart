@@ -26,7 +26,7 @@ class _AiDiagnosisSupportViewState extends ConsumerState<AiDiagnosisSupportView>
         child: Column(
           children: [
             Text(
-              'Enter clinical signs or lab results for synthshark synthesis.',
+              'Enter clinical signs or lab results for AI synthesis.',
               style: TextStyle(color: appColors.textDim, fontSize: 12),
             ),
             const SizedBox(height: 16),

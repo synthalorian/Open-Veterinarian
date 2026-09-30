@@ -12,6 +12,14 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   errors:
     must_be_immutable: ignore  # HiveObject mixin requires mutable _box/_key fields
+  exclude:
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
 
 linter:
   # The lint rules applied to this project can be customized in the

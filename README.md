@@ -1,5 +1,10 @@
 ![Open-Veterinarian](.github/preview.png)
 
+<p align="center">
+  <img src=".github/assets/synthalorian-idle-128.gif" width="128" height="128" alt="The synthalorian: a pixel-art figure in a black helmet with a pink T-visor, idling">
+</p>
+<p align="center"><em>An open-source assistance app for veterinary professionals, glowing through the night shift.</em></p>
+
 # Open Veterinarian 🐾
 
 ![License](https://img.shields.io/badge/License-Apache-2.0-blue)
@@ -63,3 +68,11 @@ Open Veterinarian is **100% Open Source** and free for the veterinary community.
 
 ---
 **This is the wave.** 🌊
+
+---
+
+<p align="center">
+  <img src=".github/assets/synthalorian-idle-128.gif" width="32" height="32" alt="The synthalorian sprite"><br>
+  <sub>Built by <a href="https://github.com/synthalorian">the synthalorian</a></sub>
+  <br><sub>AI-assisted art: the banner image at the top of this README was made with AI image tools. The synthalorian sprite is code-drawn pixel art.</sub>
+</p>
